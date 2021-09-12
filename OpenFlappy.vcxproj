@@ -149,7 +149,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Renderer\Shader.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\BasicFragment.shader" />
+    <None Include="Resources\Shaders\BasicVertex.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Renderer\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

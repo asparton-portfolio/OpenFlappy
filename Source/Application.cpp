@@ -1,5 +1,5 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
+#include "Renderer/Shader.h"
+
 #include <GLFW/glfw3.h>
 
 int main()
@@ -32,37 +32,16 @@ int main()
 	/// RECTANGLE RENDERING
 	
 	// Shaders
-	const GLchar* vertexShaderSource =
-		"#version 450 core\n"
-		"layout(location = 0) in vec2 position;\n"
-		"void main()\n"
-		"{\n"
-		"\tgl_Position = vec4(position.x, position.y, 0.f, 1.f);\n"
-		"}\n";
-
-	const GLchar* fragmentShaderSource =
-		"#version 450 core\n"
-		"layout(location = 0) out vec4 color;\n"
-		"void main()\n"
-		"{\n"
-		"\tcolor = vec4(0.1f, 0.75f, 0.2f, 1.f);\n"
-		"}\n";
-
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-	glCompileShader(vertexShader);
-
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-	glCompileShader(fragmentShader);
+	Shader vertexShader(GL_VERTEX_SHADER, "Resources/Shaders/BasicVertex.shader");
+	Shader fragmentShader(GL_FRAGMENT_SHADER, "Resources/Shaders/BasicFragment.shader");
 
 	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
+	glAttachShader(shaderProgram, vertexShader.getID());
+	glAttachShader(shaderProgram, fragmentShader.getID());
 	glLinkProgram(shaderProgram);
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	vertexShader.Destroy();
+	fragmentShader.Destroy();
 
 	// Verticies
 	GLfloat rectanglePositions[8] = {
