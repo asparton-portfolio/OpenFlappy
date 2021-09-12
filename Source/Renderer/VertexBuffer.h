@@ -9,8 +9,8 @@ public:
 	explicit VertexBuffer(const GLvoid* data, GLsizei size);
 	~VertexBuffer();
 
-	void Bind() const;
-	void Unbind() const;
+	void bind() const;
+	void unbind() const;
 
 private:
 	GLuint m_ID;

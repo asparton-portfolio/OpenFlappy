@@ -9,8 +9,8 @@ public:
 	explicit IndexBuffer(const GLuint data[], GLuint count);
 	~IndexBuffer();
 
-	void Bind() const;
-	void Unbind() const;
+	void bind() const;
+	void unbind() const;
 
 private:
 	GLuint m_ID;

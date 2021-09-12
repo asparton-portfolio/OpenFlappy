@@ -30,12 +30,12 @@ ShaderProgram::ShaderProgram(const std::string& vertexShaderPath, const std::str
 	fragmentShader.Destroy();
 }
 
-void ShaderProgram::Use() const
+void ShaderProgram::use() const
 {
 	glUseProgram(m_ID);
 }
 
-void ShaderProgram::Unuse() const
+void ShaderProgram::unuse() const
 {
 	glUseProgram(0);
 }

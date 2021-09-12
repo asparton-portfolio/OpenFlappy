@@ -9,8 +9,8 @@ public:
 	ShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 	~ShaderProgram();
 
-	void Use() const;
-	void Unuse() const;
+	void use() const;
+	void unuse() const;
 
 private:
 	GLuint m_ID;
