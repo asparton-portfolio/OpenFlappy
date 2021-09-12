@@ -1,4 +1,4 @@
-#include "Renderer/Shader.h"
+#include "Renderer/ShaderProgram.h"
 
 #include <GLFW/glfw3.h>
 
@@ -32,16 +32,7 @@ int main()
 	/// RECTANGLE RENDERING
 	
 	// Shaders
-	Shader vertexShader(GL_VERTEX_SHADER, "Resources/Shaders/BasicVertex.shader");
-	Shader fragmentShader(GL_FRAGMENT_SHADER, "Resources/Shaders/BasicFragment.shader");
-
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader.getID());
-	glAttachShader(shaderProgram, fragmentShader.getID());
-	glLinkProgram(shaderProgram);
-
-	vertexShader.Destroy();
-	fragmentShader.Destroy();
+	ShaderProgram shaderProgram("Resources/Shaders/BasicVertex.shader", "Resources/Shaders/BasicFragment.shader");
 
 	// Verticies
 	GLfloat rectanglePositions[8] = {
@@ -75,7 +66,7 @@ int main()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), &indicies, GL_STATIC_DRAW);
 
-	glUseProgram(0);
+	shaderProgram.Unuse();
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -87,7 +78,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.5f, 0.2f, 0.2f, 1.f);
 
-		glUseProgram(shaderProgram);
+		shaderProgram.Use();
 		glBindVertexArray(vertexArray);
 
 		// Draw call
@@ -98,7 +89,6 @@ int main()
 		glfwPollEvents();	// Manage window events (like closing, resizing...)
 	}
 
-	glDeleteProgram(shaderProgram);
 	glDeleteVertexArrays(1, &vertexArray);
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);

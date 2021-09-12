@@ -21,6 +21,9 @@
     <ClCompile Include="Source\Renderer\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Renderer\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\BasicVertex.shader" />
@@ -28,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Renderer\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\ShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

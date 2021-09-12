@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Renderer\ShaderProgram.cpp" />
     <ClCompile Include="Source\Renderer\Shader.cpp" />
     <ClCompile Include="Source\Application.cpp" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <None Include="Resources\Shaders\BasicVertex.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Renderer\ShaderProgram.h" />
     <ClInclude Include="Source\Renderer\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
