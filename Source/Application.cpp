@@ -1,6 +1,7 @@
 #include "Renderer/ShaderProgram.h"
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
+#include "Renderer/VertexArray.h"
 
 #include <GLFW/glfw3.h>
 
@@ -48,26 +49,26 @@ int main()
 	GLuint indicies[6] = { 0, 1, 2, 3, 0, 2 };
 
 	// Vertex array
-	GLuint vertexArray;
-	glCreateVertexArrays(1, &vertexArray);
-	glBindVertexArray(vertexArray);
+	VertexArray vertexArray;
+	vertexArray.bind();
 
 	// Vertex buffer
 	VertexBuffer vertexBuffer(rectanglePositions, 8 * sizeof(GLfloat));
-	vertexBuffer.Bind();
+	vertexBuffer.bind();
 
 	// Vertex buffer layout
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(0);
+	VertexBufferLayout vbLayout;
+	vbLayout.Add<GLfloat>(2);
+	vertexArray.setVertexBufferLayout(vbLayout);
 
 	// Index buffer
 	IndexBuffer indexBuffer(indicies, 6);
-	indexBuffer.Bind();
+	indexBuffer.bind();
 
-	shaderProgram.Unuse();
-	glBindVertexArray(0);
-	vertexBuffer.Unbind();
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	shaderProgram.unuse();
+	vertexArray.unbind();
+	vertexBuffer.unbind();
+	indexBuffer.unbind();
 
 	// Main loop
 	while (!glfwWindowShouldClose(window))
@@ -76,8 +77,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.5f, 0.2f, 0.2f, 1.f);
 
-		shaderProgram.Use();
-		glBindVertexArray(vertexArray);
+		shaderProgram.use();
+		vertexArray.bind();
 
 		// Draw call
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
@@ -86,8 +87,6 @@ int main()
 
 		glfwPollEvents();	// Manage window events (like closing, resizing...)
 	}
-
-	glDeleteVertexArrays(1, &vertexArray);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

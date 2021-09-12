@@ -154,6 +154,7 @@
     <ClCompile Include="Source\Renderer\Shader.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="Source\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\BasicFragment.shader" />
@@ -164,6 +165,8 @@
     <ClInclude Include="Source\Renderer\ShaderProgram.h" />
     <ClInclude Include="Source\Renderer\Shader.h" />
     <ClInclude Include="Source\Renderer\VertexBuffer.h" />
+    <ClInclude Include="Source\Renderer\VertexBufferLayout.h" />
+    <ClInclude Include="Source\Renderer\VertexArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

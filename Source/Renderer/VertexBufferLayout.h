@@ -22,14 +22,18 @@ class VertexBufferLayout
 {
 public:
 
-	template <class T>
-	void Add(const unsigned int count);
+	template <typename T>
+	void Add(const unsigned int count)
+	{
+		// nothing
+	}
 
 	/**
 	 * .Add a given number of floats to the layout
 	 * 
 	 * \param count the number of floats to add
 	 */
+	template<>
 	void Add<GLfloat>(const unsigned int count)
 	{
 		VertexBufferLayoutElement element{ count, GL_FLOAT, GL_FALSE };
@@ -37,7 +41,7 @@ public:
 		m_stride += count * sizeof(GLfloat);
 	}
 
-	inline std::vector<VertexBufferLayoutElement> getElementst() const { return m_elements; }
+	inline std::vector<VertexBufferLayoutElement> getElements() const { return m_elements; }
 	inline unsigned int getStride() const { return m_stride; }
 
 private:
