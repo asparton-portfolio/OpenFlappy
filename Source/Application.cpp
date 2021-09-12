@@ -1,5 +1,5 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
+#include "Renderer/ShaderProgram.h"
+
 #include <GLFW/glfw3.h>
 
 int main()
@@ -32,37 +32,7 @@ int main()
 	/// RECTANGLE RENDERING
 	
 	// Shaders
-	const GLchar* vertexShaderSource =
-		"#version 450 core\n"
-		"layout(location = 0) in vec2 position;\n"
-		"void main()\n"
-		"{\n"
-		"\tgl_Position = vec4(position.x, position.y, 0.f, 1.f);\n"
-		"}\n";
-
-	const GLchar* fragmentShaderSource =
-		"#version 450 core\n"
-		"layout(location = 0) out vec4 color;\n"
-		"void main()\n"
-		"{\n"
-		"\tcolor = vec4(0.1f, 0.75f, 0.2f, 1.f);\n"
-		"}\n";
-
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-	glCompileShader(vertexShader);
-
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-	glCompileShader(fragmentShader);
-
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	ShaderProgram shaderProgram("Resources/Shaders/BasicVertex.shader", "Resources/Shaders/BasicFragment.shader");
 
 	// Verticies
 	GLfloat rectanglePositions[8] = {
@@ -96,7 +66,7 @@ int main()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), &indicies, GL_STATIC_DRAW);
 
-	glUseProgram(0);
+	shaderProgram.Unuse();
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -108,7 +78,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.5f, 0.2f, 0.2f, 1.f);
 
-		glUseProgram(shaderProgram);
+		shaderProgram.Use();
 		glBindVertexArray(vertexArray);
 
 		// Draw call
@@ -119,7 +89,6 @@ int main()
 		glfwPollEvents();	// Manage window events (like closing, resizing...)
 	}
 
-	glDeleteProgram(shaderProgram);
 	glDeleteVertexArrays(1, &vertexArray);
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);
