@@ -1,5 +1,6 @@
 #include "Renderer/ShaderProgram.h"
 #include "Renderer/VertexBuffer.h"
+#include "Renderer/IndexBuffer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -60,10 +61,8 @@ int main()
 	glEnableVertexAttribArray(0);
 
 	// Index buffer
-	GLuint indexBuffer;
-	glCreateBuffers(1, &indexBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), &indicies, GL_STATIC_DRAW);
+	IndexBuffer indexBuffer(indicies, 6);
+	indexBuffer.Bind();
 
 	shaderProgram.Unuse();
 	glBindVertexArray(0);
@@ -89,7 +88,6 @@ int main()
 	}
 
 	glDeleteVertexArrays(1, &vertexArray);
-	glDeleteBuffers(1, &indexBuffer);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
