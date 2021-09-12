@@ -1,4 +1,5 @@
 #include "Renderer/ShaderProgram.h"
+#include "Renderer/VertexBuffer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -51,10 +52,8 @@ int main()
 	glBindVertexArray(vertexArray);
 
 	// Vertex buffer
-	GLuint vertexBuffer;
-	glCreateBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(GLfloat), &rectanglePositions, GL_STATIC_DRAW);
+	VertexBuffer vertexBuffer(rectanglePositions, 8 * sizeof(GLfloat));
+	vertexBuffer.Bind();
 
 	// Vertex buffer layout
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
@@ -68,7 +67,7 @@ int main()
 
 	shaderProgram.Unuse();
 	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	vertexBuffer.Unbind();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	// Main loop
@@ -90,7 +89,6 @@ int main()
 	}
 
 	glDeleteVertexArrays(1, &vertexArray);
-	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);
 
 	glfwDestroyWindow(window);
