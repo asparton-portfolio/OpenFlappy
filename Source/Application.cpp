@@ -78,6 +78,7 @@ int main()
 		glClearColor(0.5f, 0.2f, 0.2f, 1.f);
 
 		shaderProgram.use();
+		shaderProgram.SetUniform4f("u_Color", 1.0f, 0.0f, 1.0f, 1.0f);
 		vertexArray.bind();
 
 		// Draw call

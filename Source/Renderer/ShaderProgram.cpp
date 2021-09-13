@@ -1,5 +1,7 @@
 #include "ShaderProgram.h"
 
+#include <iostream>
+
 ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentShader) : m_ID(0)
 {
 	// Shader program creation using the shader given in parameter
@@ -38,6 +40,24 @@ void ShaderProgram::use() const
 void ShaderProgram::unuse() const
 {
 	glUseProgram(0);
+}
+
+void ShaderProgram::SetUniform4f(const GLchar* name, const GLfloat& x, const GLfloat& y, const GLfloat& z, const GLfloat& w)
+{
+	GLint uniformLocation;
+	std::map<const GLchar*, GLint>::iterator uniform = m_uniforms.find(name);
+	if (uniform != m_uniforms.end())
+	{
+		uniformLocation = m_uniforms[name];
+	}
+	else
+	{
+		uniformLocation = glGetUniformLocation(m_ID, name);
+		if (uniformLocation != -1)
+			m_uniforms.insert(std::pair<const GLchar*, GLint>(name, uniformLocation));
+	}
+
+	glProgramUniform4f(m_ID, uniformLocation, x, y, z, w);
 }
 
 ShaderProgram::~ShaderProgram()
