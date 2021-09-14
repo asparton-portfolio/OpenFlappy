@@ -2,6 +2,7 @@
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Texture.h"
 
 #include <GLFW/glfw3.h>
 
@@ -23,6 +24,7 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
 
 	// GLEW initialisation
 	if (glewInit() != GLEW_OK)
@@ -32,32 +34,43 @@ int main()
 		return -1;
 	}
 
+	// Blending initialisation
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	/// RECTANGLE RENDERING
-	
-	// Shaders
-	ShaderProgram shaderProgram("Resources/Shaders/BasicVertex.shader", "Resources/Shaders/BasicFragment.shader");
 
 	// Verticies
-	GLfloat rectanglePositions[8] = {
-		-0.4f, -0.4f,
-		 0.4f, -0.4f,
-		 0.4f,  0.4f,
-		-0.4f,  0.4f
+	GLfloat rectangleVerticies[16] = {
+		-0.4f, -0.4f, 0.0f, 0.0f,
+		 0.4f, -0.4f, 1.0f, 0.0f,
+		 0.4f,  0.4f, 1.0f, 1.0f,
+		-0.4f,  0.4f, 0.0f, 1.0f
 	};
 
 	// Indicies
 	GLuint indicies[6] = { 0, 1, 2, 3, 0, 2 };
+
+	// Shaders
+	ShaderProgram shaderProgram("Resources/Shaders/BasicVertex.shader", "Resources/Shaders/BasicFragment.shader");
+
+	// Texture
+	Texture texture("Resources/Textures/flappyBird.png");
+	texture.bind();
+	shaderProgram.SetUniform1i("u_Texture", 0);
+	shaderProgram.SetUniform4f("u_Color", 0.2f, 0.5f, 0.8f, 1.f);
 
 	// Vertex array
 	VertexArray vertexArray;
 	vertexArray.bind();
 
 	// Vertex buffer
-	VertexBuffer vertexBuffer(rectanglePositions, 8 * sizeof(GLfloat));
+	VertexBuffer vertexBuffer(rectangleVerticies, 16 * sizeof(GLfloat));
 	vertexBuffer.bind();
 
 	// Vertex buffer layout
 	VertexBufferLayout vbLayout;
+	vbLayout.Add<GLfloat>(2);
 	vbLayout.Add<GLfloat>(2);
 	vertexArray.setVertexBufferLayout(vbLayout);
 
@@ -70,6 +83,9 @@ int main()
 	vertexBuffer.unbind();
 	indexBuffer.unbind();
 
+	GLfloat green = 0.0f;
+	float variation = 0.05f;
+
 	// Main loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -77,8 +93,11 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.5f, 0.2f, 0.2f, 1.f);
 
+		if (green > 1.0f || green < 0.0f)
+			variation = -variation;
+		green += variation;
+
 		shaderProgram.use();
-		shaderProgram.SetUniform4f("u_Color", 1.0f, 0.0f, 1.0f, 1.0f);
 		vertexArray.bind();
 
 		// Draw call

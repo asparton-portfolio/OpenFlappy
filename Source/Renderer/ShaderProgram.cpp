@@ -44,20 +44,34 @@ void ShaderProgram::unuse() const
 
 void ShaderProgram::SetUniform4f(const GLchar* name, const GLfloat& x, const GLfloat& y, const GLfloat& z, const GLfloat& w)
 {
-	GLint uniformLocation;
+	GLint uniformLocation = getUniformLocation(name);
+	if (uniformLocation != -1)
+		glProgramUniform4f(m_ID, uniformLocation, x, y, z, w);
+}
+
+void ShaderProgram::SetUniform1i(const GLchar* name, const GLint& value)
+{
+	GLint uniformLocation = getUniformLocation(name);
+	if (uniformLocation != -1)
+		glProgramUniform1i(m_ID, uniformLocation, value);
+}
+
+GLint ShaderProgram::getUniformLocation(const GLchar* name)
+{
 	std::map<const GLchar*, GLint>::iterator uniform = m_uniforms.find(name);
 	if (uniform != m_uniforms.end())
 	{
-		uniformLocation = m_uniforms[name];
+		return m_uniforms[name];
 	}
 	else
 	{
-		uniformLocation = glGetUniformLocation(m_ID, name);
+		GLint uniformLocation = glGetUniformLocation(m_ID, name);
+
 		if (uniformLocation != -1)
 			m_uniforms.insert(std::pair<const GLchar*, GLint>(name, uniformLocation));
-	}
 
-	glProgramUniform4f(m_ID, uniformLocation, x, y, z, w);
+		return uniformLocation;
+	}
 }
 
 ShaderProgram::~ShaderProgram()

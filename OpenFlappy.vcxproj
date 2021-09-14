@@ -78,12 +78,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\Release\x64\;$(SolutionDir)Dependencies\GLFW\lib-vc2019\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\Release\x64\;$(SolutionDir)Dependencies\GLFW\lib-vc2019\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -155,18 +155,21 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="Source\Renderer\VertexArray.cpp" />
+    <ClCompile Include="Source\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\BasicFragment.shader" />
     <None Include="Resources\Shaders\BasicVertex.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\STB\stb_image.h" />
     <ClInclude Include="Source\Renderer\IndexBuffer.h" />
     <ClInclude Include="Source\Renderer\ShaderProgram.h" />
     <ClInclude Include="Source\Renderer\Shader.h" />
     <ClInclude Include="Source\Renderer\VertexBuffer.h" />
     <ClInclude Include="Source\Renderer\VertexBufferLayout.h" />
     <ClInclude Include="Source\Renderer\VertexArray.h" />
+    <ClInclude Include="Source\Renderer\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
