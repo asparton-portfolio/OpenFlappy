@@ -4,6 +4,9 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Texture.h"
 
+#include <GLM/glm.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
+
 #include <GLFW/glfw3.h>
 
 int main()
@@ -42,10 +45,10 @@ int main()
 
 	// Verticies
 	GLfloat rectangleVerticies[16] = {
-		-0.4f, -0.4f, 0.0f, 0.0f,
-		 0.4f, -0.4f, 1.0f, 0.0f,
-		 0.4f,  0.4f, 1.0f, 1.0f,
-		-0.4f,  0.4f, 0.0f, 1.0f
+		  0.0f, 736.f, 0.0f, 0.0f,
+		 100.f, 736.f, 1.0f, 0.0f,
+		 100.f, 636.f, 1.0f, 1.0f,
+		  0.0f, 636.f, 0.0f, 1.0f
 	};
 
 	// Indicies
@@ -53,6 +56,16 @@ int main()
 
 	// Shaders
 	ShaderProgram shaderProgram("Resources/Shaders/BasicVertex.shader", "Resources/Shaders/BasicFragment.shader");
+
+	// MVP matrix
+	glm::mat4 projection = glm::ortho<GLfloat>(0.f, 414.f, 736.f, 0.f);
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, 0.f, 0.f));
+
+	glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.5f, 1.f, 0.f));
+	glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(100.f, 0.f, 0.f));
+	glm::mat4 model = translation * scale;
+	
+	shaderProgram.SetUniformMat4("u_MVP", projection * view * model);
 
 	// Texture
 	Texture texture("Resources/Textures/flappyBird.png");

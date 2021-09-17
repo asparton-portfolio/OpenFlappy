@@ -10,7 +10,7 @@
  */
 struct VertexBufferLayoutElement
 {
-	GLint count;
+	GLuint count;
 	GLenum type;
 	GLboolean normalized;
 };
