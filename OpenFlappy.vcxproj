@@ -150,6 +150,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLM\detail\glm.cpp" />
+    <ClCompile Include="Source\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="Source\Shapes\Rectangle.cpp" />
     <ClCompile Include="Source\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="Source\Renderer\ShaderProgram.cpp" />
     <ClCompile Include="Source\Renderer\Shader.cpp" />
@@ -295,8 +297,10 @@
     <None Include="Dependencies\GLM\gtx\vector_angle.inl" />
     <None Include="Dependencies\GLM\gtx\vector_query.inl" />
     <None Include="Dependencies\GLM\gtx\wrap.inl" />
-    <None Include="Resources\Shaders\BasicFragment.shader" />
-    <None Include="Resources\Shaders\BasicVertex.shader" />
+    <None Include="Resources\Shaders\ColorFragment.shader" />
+    <None Include="Resources\Shaders\ColorVertex.shader" />
+    <None Include="Resources\Shaders\TextureFragment.shader" />
+    <None Include="Resources\Shaders\TextureVertex.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\GLM\common.hpp" />
@@ -582,6 +586,10 @@
     <ClInclude Include="Dependencies\GLM\vec4.hpp" />
     <ClInclude Include="Dependencies\GLM\vector_relational.hpp" />
     <ClInclude Include="Dependencies\STB\stb_image.h" />
+    <ClInclude Include="Source\Renderer\Renderer2D.h" />
+    <ClInclude Include="Source\Renderer\Color.h" />
+    <ClInclude Include="Source\Shapes\Vector2D.h" />
+    <ClInclude Include="Source\Shapes\Rectangle.h" />
     <ClInclude Include="Source\Renderer\IndexBuffer.h" />
     <ClInclude Include="Source\Renderer\ShaderProgram.h" />
     <ClInclude Include="Source\Renderer\Shader.h" />
@@ -589,6 +597,9 @@
     <ClInclude Include="Source\Renderer\VertexBufferLayout.h" />
     <ClInclude Include="Source\Renderer\VertexArray.h" />
     <ClInclude Include="Source\Renderer\Texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\flappyBird.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

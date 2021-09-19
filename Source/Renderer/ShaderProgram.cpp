@@ -56,7 +56,7 @@ void ShaderProgram::SetUniform1i(const GLchar* name, const GLint& value)
 		glProgramUniform1i(m_ID, uniformLocation, value);
 }
 
-void ShaderProgram::SetUniformMat4(const GLchar* name, const glm::mat4 matrix)
+void ShaderProgram::setUniformMat4(const GLchar* name, const glm::mat4& matrix)
 {
 	GLint uniformLocation = getUniformLocation(name);
 	if (uniformLocation != -1)

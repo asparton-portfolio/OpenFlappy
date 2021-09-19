@@ -39,10 +39,16 @@
     <ClCompile Include="Dependencies\GLM\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Shapes\Rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\Renderer2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaders\BasicVertex.shader" />
-    <None Include="Resources\Shaders\BasicFragment.shader" />
+    <None Include="Resources\Shaders\TextureVertex.shader" />
+    <None Include="Resources\Shaders\TextureFragment.shader" />
     <None Include="Dependencies\GLM\detail\func_common.inl">
       <Filter>Header Files</Filter>
     </None>
@@ -451,6 +457,8 @@
     <None Include="Dependencies\GLM\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="Resources\Shaders\ColorFragment.shader" />
+    <None Include="Resources\Shaders\ColorVertex.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Renderer\Shader.h">
@@ -1323,5 +1331,22 @@
     <ClInclude Include="Dependencies\GLM\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Shapes\Rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Shapes\Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\Renderer2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\flappyBird.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

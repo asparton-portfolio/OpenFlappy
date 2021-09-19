@@ -6,6 +6,7 @@
 class IndexBuffer
 {
 public:
+	IndexBuffer() = default;
 	explicit IndexBuffer(const GLuint data[], GLuint count);
 	~IndexBuffer();
 

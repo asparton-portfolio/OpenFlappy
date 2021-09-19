@@ -21,6 +21,7 @@ struct VertexBufferLayoutElement
 class VertexBufferLayout
 {
 public:
+	VertexBufferLayout() = default;
 
 	template <typename T>
 	void Add(const unsigned int count)

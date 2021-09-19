@@ -13,9 +13,12 @@ public:
 	void unbind() const;
 
 	GLint getSamplerSlot() const;
+	const char* getPath() const;
 
 private:
 	GLuint m_ID;
 	GLint m_samplerSlot;
+
+	const char* m_path;
 };
 

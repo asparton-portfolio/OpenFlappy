@@ -6,6 +6,7 @@
 class VertexBuffer
 {
 public:
+	VertexBuffer() = default;
 	explicit VertexBuffer(const GLvoid* data, GLsizei size);
 	~VertexBuffer();
 

@@ -36,6 +36,7 @@ std::string Shader::getSourceCode(const std::string& path)
 
 	if (!fileStream)
 	{
+		std::cout << path << std::endl;
 		std::cout << "ERROR: FILE NOT FOUND." << std::endl;
 		return std::string();
 	}

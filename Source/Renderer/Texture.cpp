@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-Texture::Texture(const char* texturePath) : m_ID(0), m_samplerSlot(0)
+Texture::Texture(const char* texturePath) : m_ID(0), m_samplerSlot(0), m_path(texturePath)
 {
 	// Get texture data
 	int width, height, bytesPerPixel;
@@ -30,6 +30,7 @@ Texture::Texture(const char* texturePath) : m_ID(0), m_samplerSlot(0)
 	else
 	{
 		std::cout << "ERROR: Texture can't be loaded." << std::endl;
+		m_path = nullptr;
 	}
 	stbi_image_free(textureData);
 }
@@ -50,6 +51,11 @@ void Texture::unbind() const
 GLint Texture::getSamplerSlot() const
 {
 	return m_samplerSlot;
+}
+
+const char* Texture::getPath() const
+{
+	return m_path;
 }
 
 Texture::~Texture()
