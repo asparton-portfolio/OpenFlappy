@@ -1,6 +1,6 @@
 #include "IndexBuffer.h"
 
-IndexBuffer::IndexBuffer(const GLuint data[], GLuint count) : m_ID(0)
+IndexBuffer::IndexBuffer(const GLuint data[], GLuint count) : m_ID(0), m_count(count)
 {
 	glCreateBuffers(1, &m_ID);
 	bind();
@@ -16,6 +16,11 @@ void IndexBuffer::bind() const
 void IndexBuffer::unbind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+unsigned int IndexBuffer::getCount() const
+{
+	return m_count;
 }
 
 IndexBuffer::~IndexBuffer()

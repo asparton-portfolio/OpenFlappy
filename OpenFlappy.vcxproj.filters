@@ -1343,6 +1343,9 @@
     <ClInclude Include="Source\Renderer\Renderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Shapes\Shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\flappyBird.png">

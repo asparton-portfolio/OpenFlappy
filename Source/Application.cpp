@@ -38,21 +38,18 @@ int main()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	/// RECTANGLE RENDERING
+	Vector2D<float> winSize(414.f, 736.f);
 
-	Color bgColor(0.9f, 0.9f, 0.75f, 1.f);
+	Color bgColor(0.2f, 0.8f, 0.4f, 1.f);
 	Vector2D<float> bgPosition(0.0f, 0.0f);
-	Vector2D<float> bgSize(414.f, 736.f);
-	Rectangle bg(bgPosition, bgSize, bgColor);
+	Vector2D<float> bgSize(winSize.x, winSize.y);
+	Rectangle background(bgPosition, bgSize, bgColor);
 	
 	Texture flappyTexture("Resources/Textures/flappyBird.png");
-	Vector2D<float> flappyPosition(0.0f, 0.0f);
-	Vector2D<float> flappySize(200.f, 200.f);
+	Vector2D<float> flappyPosition(100.0f, 100.0f);
+	Vector2D<float> flappySize(100.f, 100.f);
 	Rectangle flappy(flappyPosition, flappySize, flappyTexture);
 
-	Color flappyColor(0.1f, 0.14f, 0.4f, 0.2f);
-	flappy.setColor(flappyColor);
-
-	Vector2D<float> winSize(414.f, 736.f);
 	Renderer2D renderer(winSize);
 
 	// Main loop
@@ -60,7 +57,11 @@ int main()
 	{
 		// Set a background color
 		renderer.clear();
-		renderer.draw(bg);
+		renderer.draw(background);
+
+		flappyPosition.x += 5.f;
+		flappy.setPosition(flappyPosition);
+
 		renderer.draw(flappy);
 
 		glfwSwapBuffers(window);	// Swap between front and back buffers

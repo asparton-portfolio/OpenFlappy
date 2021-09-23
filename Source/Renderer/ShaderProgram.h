@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shader.h"
+#include "Color.h"
 
 #include <map>
 #include <GLM/glm.hpp>
@@ -18,6 +19,8 @@ public:
 	void SetUniform4f(const GLchar* name, const GLfloat& x, const GLfloat& y, const GLfloat& z, const GLfloat& w);
 	void SetUniform1i(const GLchar* name, const GLint& value);
 	void setUniformMat4(const GLchar* name, const glm::mat4& matrix);
+
+	void SetUniformColor(const GLchar* name, const Color& color);
 
 private:
 	GLint getUniformLocation(const GLchar* name);

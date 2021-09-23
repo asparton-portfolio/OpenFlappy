@@ -588,6 +588,7 @@
     <ClInclude Include="Dependencies\STB\stb_image.h" />
     <ClInclude Include="Source\Renderer\Renderer2D.h" />
     <ClInclude Include="Source\Renderer\Color.h" />
+    <ClInclude Include="Source\Shapes\Shape.h" />
     <ClInclude Include="Source\Shapes\Vector2D.h" />
     <ClInclude Include="Source\Shapes\Rectangle.h" />
     <ClInclude Include="Source\Renderer\IndexBuffer.h" />

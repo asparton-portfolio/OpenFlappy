@@ -13,7 +13,10 @@ public:
 	void bind() const;
 	void unbind() const;
 
+	unsigned int getCount() const;
+
 private:
 	GLuint m_ID;
+	unsigned int m_count;
 };
 

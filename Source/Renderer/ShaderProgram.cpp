@@ -63,6 +63,11 @@ void ShaderProgram::setUniformMat4(const GLchar* name, const glm::mat4& matrix)
 		glProgramUniformMatrix4fv(m_ID, uniformLocation, 1, GL_FALSE, &matrix[0][0]);
 }
 
+void ShaderProgram::SetUniformColor(const GLchar* name, const Color& color)
+{
+	SetUniform4f(name, color.red, color.green, color.blue, color.alpha);
+}
+
 GLint ShaderProgram::getUniformLocation(const GLchar* name)
 {
 	std::map<const GLchar*, GLint>::iterator uniform = m_uniforms.find(name);
