@@ -15,7 +15,7 @@ void VertexArray::unbind() const
 	glBindVertexArray(0);
 }
 
-void VertexArray::setVertexBufferLayout(const VertexBufferLayout& layout)
+void VertexArray::setVertexBufferLayout(const VertexBufferLayout& layout) const
 {
 	unsigned int offset = 0;
 	for (int i = 0; i < layout.getElements().size(); i++)
@@ -26,7 +26,7 @@ void VertexArray::setVertexBufferLayout(const VertexBufferLayout& layout)
 		offset += element.count * sizeof(element.type);
 	}}
 
-void VertexArray::setVertexBufferLayout(const VertexBufferLayout& layout, const VertexBuffer& vertexBuffer)
+void VertexArray::setVertexBufferLayout(const VertexBufferLayout& layout, const VertexBuffer& vertexBuffer) const
 {
 	vertexBuffer.bind();
 	setVertexBufferLayout(layout);

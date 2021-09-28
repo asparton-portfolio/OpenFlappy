@@ -3,6 +3,9 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+/**
+ * .Manage an opengl vertex buffer.
+ */
 class VertexBuffer
 {
 public:

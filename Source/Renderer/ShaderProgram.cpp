@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
 
-#include <iostream>
+
 
 ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentShader) : m_ID(0)
 {

@@ -3,6 +3,9 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+/**
+ * .Manage an opengl index buffer.
+ */
 class IndexBuffer
 {
 public:
@@ -13,6 +16,9 @@ public:
 	void bind() const;
 	void unbind() const;
 
+	/**
+	 * \return The number of indicies of the index buffer.
+	 */
 	unsigned int getCount() const;
 
 private:

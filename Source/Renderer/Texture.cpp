@@ -5,11 +5,16 @@
 
 #include <iostream>
 
-Texture::Texture(const char* texturePath) : m_ID(0), m_samplerSlot(0), m_path(texturePath)
+Texture::Texture(const char* texturePath, const GLint samplerSlot /*= 0*/, const bool flipVertically /*= true*/) :
+	m_ID(0), m_samplerSlot(samplerSlot), m_isFlipped(flipVertically), m_path(texturePath)
 {
 	// Get texture data
 	int width, height, bytesPerPixel;
-	stbi_set_flip_vertically_on_load(1);	// because the starting point of texture coordinates in opengl is the opposite considering the y axis
+
+	stbi_set_flip_vertically_on_load(0);
+	if (m_isFlipped)
+		stbi_set_flip_vertically_on_load(1);	// because the starting point of texture coordinates in opengl is the opposite considering the y axis
+
 	unsigned char* textureData = stbi_load(texturePath, &width, &height, &bytesPerPixel, STBI_rgb_alpha);
 	if (textureData)
 	{
@@ -35,12 +40,10 @@ Texture::Texture(const char* texturePath) : m_ID(0), m_samplerSlot(0), m_path(te
 	stbi_image_free(textureData);
 }
 
-void Texture::bind(const int samplerSlot /* = 0*/)
+void Texture::bind() const
 {
-	if (m_samplerSlot != samplerSlot)
-		m_samplerSlot = samplerSlot;
-
-	glBindTexture(GL_TEXTURE_2D, m_ID + m_samplerSlot);
+	glActiveTexture(GL_TEXTURE0 + m_samplerSlot);
+	glBindTexture(GL_TEXTURE_2D, m_ID);
 }
 
 void Texture::unbind() const
@@ -48,7 +51,7 @@ void Texture::unbind() const
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-GLint Texture::getSamplerSlot() const
+GLuint Texture::getSamplerSlot() const
 {
 	return m_samplerSlot;
 }
@@ -56,6 +59,11 @@ GLint Texture::getSamplerSlot() const
 const char* Texture::getPath() const
 {
 	return m_path;
+}
+
+bool Texture::isFlipped() const
+{
+	return m_isFlipped;
 }
 
 Texture::~Texture()

@@ -3,21 +3,26 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+/**
+ * .Manage an opengl texture using STB.
+ */
 class Texture
 {
 public:
-	explicit Texture(const char* texturePath);
+	explicit Texture(const char* texturePath, const GLint samplerSlot = 0, const bool flipVertically = true);
 	~Texture();
 
-	void bind(const int samplerSlot = 0);
+	void bind() const;
 	void unbind() const;
 
-	GLint getSamplerSlot() const;
+	GLuint getSamplerSlot() const;
 	const char* getPath() const;
+	bool isFlipped() const;
 
 private:
 	GLuint m_ID;
-	GLint m_samplerSlot;
+	GLuint m_samplerSlot;
+	const bool m_isFlipped;
 
 	const char* m_path;
 };

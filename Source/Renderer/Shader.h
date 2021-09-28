@@ -5,6 +5,9 @@
 
 #include <string>
 
+/**
+ * .Allow to create a shader from a file.
+ */
 class Shader
 {
 public:

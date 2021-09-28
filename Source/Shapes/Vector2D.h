@@ -1,5 +1,8 @@
 #pragma once
 
+/**
+ * .Represents a vector (can be a point, a direction, a size...).
+ */
 template <typename T>
 class Vector2D
 {
