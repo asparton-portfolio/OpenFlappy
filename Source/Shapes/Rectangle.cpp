@@ -28,6 +28,11 @@ Rectangle::Rectangle(const float x, const float y, const float width, const floa
 
 #pragma endregion
 
+bool Rectangle::isColliding(const Rectangle& rectangle) const
+{
+	return rectangle.getPosition().x + rectangle.getSize().x >= m_position.x && rectangle.getPosition().x <= m_position.x + m_size.x &&
+		   rectangle.getPosition().y + rectangle.getSize().y >= m_position.y && rectangle.getPosition().y <= m_position.y + m_size.y;
+}
 
 /// <summary>
 /// SETTERS

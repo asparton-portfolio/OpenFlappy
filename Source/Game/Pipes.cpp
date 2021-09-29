@@ -42,6 +42,11 @@ bool Pipes::reachedWindowEnd() const
 
 
 
+bool Pipes::isColliding(const Rectangle& rectangle) const
+{
+	return m_bottomPipe->isColliding(rectangle) || m_topPipe->isColliding(rectangle);
+}
+
 Rectangle* Pipes::getBottomPipe() const
 {
 	return m_bottomPipe;

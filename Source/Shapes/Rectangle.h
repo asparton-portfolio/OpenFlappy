@@ -31,6 +31,14 @@ public:
 	#pragma endregion
 	~Rectangle() = default;
 
+	/**
+	 * .Determine wether the given rectangle is colliding with this rectangle.
+	 *
+	 * \param rectangle the other rectangle
+	 * \return true if the given rectangle is colliding with this rectangle, false otherwise
+	 */
+	bool isColliding(const Rectangle& rectangle) const;
+
 	// Setters
 	void setPosition(const Vector2D<float>& position) final;
 	void setPosition(const float x, const float y) final;

@@ -8,6 +8,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 int main()
 {
@@ -32,10 +33,14 @@ int main()
 	Renderer2D renderer(WINDOW_SIZE);
 	std::vector<GraphicRectangle*> graphicRepresentations; // Gather all the graphic representations that will be drawn by the renderer (except the background)
 
-	// Background
+
+
+	/// Background
 	Texture backgroundTexture("Resources/Textures/background.png");
 	const Rectangle background(0.0f, 0.0f, WINDOW_SIZE.x, WINDOW_SIZE.y, backgroundTexture);
 	GraphicRectangle graphicBackground(background);
+
+
 
 	/// Pipes initialisation
 	const int BOTTOM_PIPE_HEIGHT_RANGE = 150 + (int)(WINDOW_SIZE.y - 200);
@@ -56,6 +61,14 @@ int main()
 	}
 
 
+	
+	/// Flappy bird
+	Texture flappyTexture("Resources/Textures/flappyBird.png");
+	Rectangle flappy(50.f, 350.f, 50.f, 50.f, flappyTexture);
+	graphicRepresentations.push_back(new GraphicRectangle(flappy));
+
+
+
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window))
 	{
@@ -65,11 +78,18 @@ int main()
 		// Pipes management
 		for (const Pipes* pipes : allPipes)
 		{
+			if (pipes->isColliding(flappy))
+			{
+				Color red(0.75f, 0.25f, 0.25f, 1.f);
+				flappy.setColor(red);
+			}
+
 			if (pipes->reachedWindowEnd())
 			{
 				pipes->setBottomPipeHeight((float)(rand() % BOTTOM_PIPE_HEIGHT_RANGE));
 				pipes->setPositionX(WINDOW_SIZE.x * 2);
 			}
+
 			pipes->moveToLeft(); // Pipes constantly move to the left of the screen
 		}
 

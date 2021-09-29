@@ -33,7 +33,18 @@ public:
 	 */
 	void moveToLeft() const;
 
+	/**
+	 * \return true if the left side of the pipes have reached the end of the screen, false otherwise
+	 */
 	bool reachedWindowEnd() const;
+
+	/**
+	 * .Determine wether the given rectangle is colliding with at least one of the two pipes.
+	 * 
+	 * \param rectangle the rectangle
+	 * \return true if the given rectangle is colliding with at least one of the two pipes, false otherwise.
+	 */
+	bool isColliding(const Rectangle& rectangle) const;
 
 	Rectangle* getBottomPipe() const;
 	Rectangle* getTopPipe() const;
