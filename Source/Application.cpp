@@ -44,27 +44,29 @@ int main()
 
 	/// Pipes initialisation
 	const int BOTTOM_PIPE_HEIGHT_RANGE = 150 + (int)(WINDOW_SIZE.y - 200);
-	Texture textureBottom("Resources/Textures/pipe.png");
-	Texture textureTop("Resources/Textures/pipe.png", 0, false);
+	Texture entryTexture("Resources/Textures/pipeEntry.png");
+	Texture tubeTexture("Resources/Textures/pipeTube.png", 0, false);
 
 	std::vector<Pipes*> allPipes; // Gather all the pipes of the game
 	// We only need 3 pair of pipes that we are going to reposition every time (no need to constantly delete and create new ones)
-	allPipes.push_back(new Pipes(300.f, WINDOW_SIZE.x, WINDOW_SIZE.y, textureBottom, textureTop));
-	allPipes.push_back(new Pipes(100.f, WINDOW_SIZE.x + (WINDOW_SIZE.x - WINDOW_SIZE.x / 3), WINDOW_SIZE.y, textureBottom, textureTop));
-	allPipes.push_back(new Pipes(500.f, WINDOW_SIZE.x + (WINDOW_SIZE.x + WINDOW_SIZE.x / 3), WINDOW_SIZE.y, textureBottom, textureTop));
+	allPipes.push_back(new Pipes(300.f, WINDOW_SIZE.x, WINDOW_SIZE.y, entryTexture, tubeTexture));
+	allPipes.push_back(new Pipes(100.f, WINDOW_SIZE.x + (WINDOW_SIZE.x - WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
+	allPipes.push_back(new Pipes(500.f, WINDOW_SIZE.x + (WINDOW_SIZE.x + WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
 	
 	// We add the graphic representations of the pipes
 	for (const Pipes* pipes : allPipes)
 	{
-		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()));
-		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()));
+		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()->getPipeEntry()));
+		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()->getPipeTube()));
+		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()->getPipeEntry()));
+		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()->getPipeTube()));
 	}
 
 
 	
 	/// Flappy bird
 	Texture flappyTexture("Resources/Textures/flappyBird.png");
-	Rectangle flappy(50.f, 350.f, 50.f, 50.f, flappyTexture);
+	Rectangle flappy(50.f, 600.f, 50.f, 50.f, flappyTexture);
 	graphicRepresentations.push_back(new GraphicRectangle(flappy));
 
 

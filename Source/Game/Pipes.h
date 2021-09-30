@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../Shapes/Rectangle.h"
+#include "Pipe.h"
 
 /**
- * .Represents a pair of Pipes composed by two rectangles.
+ * .Represents a pair of Pipes composed by two Pipe.
  *  - Can change of size and postion.
- *  - Can collide with another rectangle (not implemented yet).
+ *  - Can collide with another rectangle.
  */
 class Pipes
 {
 public:
 	Pipes(const float bottomPipeHeight, const float startPositionX, const float windowSizeY, Texture& textureBottom, Texture& textureTop,
-		const float pipeWidth = 40.f, const float pipeGap = 150.f, const float speed = 1.5f);
+		const float pipeWidth = 40.f, const float pipeGap = 150.f);
 	~Pipes();
 
 	/**
@@ -46,16 +46,15 @@ public:
 	 */
 	bool isColliding(const Rectangle& rectangle) const;
 
-	Rectangle* getBottomPipe() const;
-	Rectangle* getTopPipe() const;
+	Pipe* getBottomPipe() const;
+	Pipe* getTopPipe() const;
 	float getPipeWidth() const;
 
 private:
-	Rectangle* m_bottomPipe;
-	Rectangle* m_topPipe;
+	Pipe* m_bottomPipe;
+	Pipe* m_topPipe;
 	float m_pipeGap;
 	float m_pipeWidth;
-	float m_speed;
 
 	const float m_windowSizeY;
 };

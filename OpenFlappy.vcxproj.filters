@@ -54,6 +54,9 @@
     <ClCompile Include="Source\Renderer\GraphicRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Pipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\TextureVertex.shader" />
@@ -1370,6 +1373,9 @@
     <ClInclude Include="Source\ApplicationUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Pipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\flappyBird.png">
@@ -1378,7 +1384,10 @@
     <Image Include="Resources\Textures\background.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\pipe.png">
+    <Image Include="Resources\Textures\pipeEntry.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Textures\pipeTube.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
