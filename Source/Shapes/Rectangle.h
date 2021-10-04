@@ -55,7 +55,7 @@ public:
 	Color getColor() const final;
 	Texture* getTexture() const final;
 
-private:
+protected:
 	Vector2D<float> m_position;
 	Vector2D<float> m_size;
 

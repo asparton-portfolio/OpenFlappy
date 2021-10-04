@@ -6,7 +6,7 @@ class Pipe
 {
 public:
 	Pipe(const float x, const float y, const float height, Texture& entryTexture, Texture& tubeTexture, 
-		const bool entryTop = true, const float width = 40.f, const float speed = 1.5f);
+		const bool entryTop = true, const float width = 40.f, const float speed = 2.5f);
 	~Pipe();
 
 	/**
