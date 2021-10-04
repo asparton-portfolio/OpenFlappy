@@ -42,6 +42,13 @@ public:
 	 * \param width the new height of the shape
 	 */
 	virtual void setSize(const float width, const float height) = 0;
+	
+	/**
+	 * .Set the rotation of the shape in degree (< 0 -> clockwise && > 0 -> anticlockwise).
+	 * 
+	 * \param rotation the rotation angle in degree.
+	 */
+	virtual void setRotation(const float rotation) = 0;
 
 
 	/**
@@ -68,6 +75,11 @@ public:
 	 * \return the size of the shape.
 	 */
 	virtual Vector2D<float> getSize() const = 0;
+
+	/**
+	 * \return the angle of rotation of the shape in degree.
+	 */
+	virtual float getRotation() const = 0;
 
 
 	/**

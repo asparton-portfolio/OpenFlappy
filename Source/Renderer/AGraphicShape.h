@@ -30,7 +30,7 @@ public:
 protected:
 	IShape* m_shape; // A pointer to the associated shape
 
-	glm::mat4 m_modelMatrix; // Used to position the shape on the screen
+	glm::mat4 m_translationMatrix; // Used to position the shape on the screen
 	Color m_color;
 	Texture* m_texture; // Not mandatory (can be nullptr)
 

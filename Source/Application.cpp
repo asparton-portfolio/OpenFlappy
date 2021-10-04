@@ -9,7 +9,9 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
-#include <iostream>
+
+
+#include <GLM/gtc/matrix_transform.hpp>
 
 static const Vector2D<float> WINDOW_SIZE(414.f, 736.f);
 
@@ -124,13 +126,13 @@ int main()
 	allPipes.push_back(new Pipes(500.f, WINDOW_SIZE.x + 750.f + (WINDOW_SIZE.x + WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
 	
 	// We add the graphic representations of the pipes
-	for (const Pipes* pipes : allPipes)
+	/*for (const Pipes* pipes : allPipes)
 	{
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()->getPipeEntry()));
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()->getPipeTube()));
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()->getPipeEntry()));
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()->getPipeTube()));
-	}
+	}*/
 
 
 	/// Flappy bird
@@ -142,14 +144,16 @@ int main()
 	bool isJumping = false;	// Used to determine when flappy has reached his maximum jump height
 
 
+	flappy.setRotation(180.f);
+
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window))
 	{
 		renderer.clear();
 
 		renderer.draw(graphicBackground); // Draw backgound first, and the other elements above
-		managePipes(allPipes, flappy);
-		manageFlappyJump(flappy, isJumping);
+		//managePipes(allPipes, flappy);
+		//manageFlappyJump(flappy, isJumping);
 		updateGraphics(graphicRepresentations, renderer);
 
 		glfwSwapBuffers(window); // Swap between front and back buffers

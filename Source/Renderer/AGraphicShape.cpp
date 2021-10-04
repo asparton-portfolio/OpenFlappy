@@ -4,7 +4,7 @@
 
 AGraphicShape::AGraphicShape(IShape* shape) : m_shape(shape), m_color(m_shape->getColor()), m_texture(m_shape->getTexture())
 {
-	m_modelMatrix = glm::translate(glm::mat4(1.f), glm::vec3(m_shape->getPosition().x, m_shape->getPosition().y, 0.f));
+	m_translationMatrix = glm::translate(glm::mat4(1.f), glm::vec3(m_shape->getPosition().x, m_shape->getPosition().y, 0.f));
 
 	// To correctly update the associated shaders
 	m_bufferVerticiesChanged = true;
@@ -42,7 +42,7 @@ void AGraphicShape::updateShaders(const glm::mat4& projectionMatrix)
 
 	if (m_positionChanged)
 	{
-		m_shaderProgram->setUniformMat4("u_MVP", projectionMatrix * m_modelMatrix);
+		m_shaderProgram->setUniformMat4("u_MVP", projectionMatrix * m_translationMatrix);
 		m_positionChanged = false;
 	}
 
@@ -60,12 +60,11 @@ void AGraphicShape::updateShaders(const glm::mat4& projectionMatrix)
 
 void AGraphicShape::checkUpdate()
 {
-	glm::mat4 shapeModelMatrix = glm::translate(glm::mat4(1.f), glm::vec3(m_shape->getPosition().x, m_shape->getPosition().y, 0.f));
-
-	if (shapeModelMatrix != m_modelMatrix)
+	glm::mat4 shapeTranslationMatrix = glm::translate(glm::mat4(1.f), glm::vec3(m_shape->getPosition().x, m_shape->getPosition().y, 0.f));
+	if (shapeTranslationMatrix != m_translationMatrix)
 	{
 		m_positionChanged = true;
-		m_modelMatrix = shapeModelMatrix;
+		m_translationMatrix = shapeTranslationMatrix;
 	}
 
 	if (m_shape->getColor().red != m_color.red ||

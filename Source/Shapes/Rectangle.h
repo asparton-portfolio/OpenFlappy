@@ -44,6 +44,7 @@ public:
 	void setPosition(const float x, const float y) final;
 	void setSize(const Vector2D<float>& size) final;
 	void setSize(const float width, const float height) final;
+	void setRotation(const float rotation) final;
 
 	void setColor(const Color& color) final;
 	void setTexture(Texture& texture) final;
@@ -51,6 +52,7 @@ public:
 	// Getters
 	Vector2D<float> getPosition() const final;
 	Vector2D<float> getSize() const final;
+	float getRotation() const final;
 
 	Color getColor() const final;
 	Texture* getTexture() const final;
@@ -58,6 +60,7 @@ public:
 protected:
 	Vector2D<float> m_position;
 	Vector2D<float> m_size;
+	float m_rotation;
 
 	Color m_color;
 	Texture* m_texture;
