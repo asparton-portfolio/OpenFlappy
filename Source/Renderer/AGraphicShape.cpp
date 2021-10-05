@@ -2,7 +2,7 @@
 
 #include <GLM/gtc/matrix_transform.hpp>
 
-AGraphicShape::AGraphicShape(IShape* shape) : m_shape(shape), m_color(m_shape->getColor()), m_texture(m_shape->getTexture())
+AGraphicShape::AGraphicShape(IShape* shape) : m_shape(shape), m_rotation(), m_color(m_shape->getColor()), m_texture(m_shape->getTexture())
 {
 	m_translationMatrix = glm::translate(glm::mat4(1.f), glm::vec3(m_shape->getPosition().x, m_shape->getPosition().y, 0.f));
 
@@ -67,6 +67,12 @@ void AGraphicShape::checkUpdate()
 		m_translationMatrix = shapeTranslationMatrix;
 	}
 
+	if (m_shape->getRotation() != m_rotation)
+	{
+		m_bufferVerticiesChanged = true;
+		m_rotation = m_shape->getRotation();
+	}
+
 	if (m_shape->getColor().red != m_color.red ||
 		m_shape->getColor().green != m_color.green ||
 		m_shape->getColor().blue != m_color.blue ||
@@ -91,6 +97,12 @@ bool AGraphicShape::shaderInfoChanged() const
 bool AGraphicShape::bufferVerticiesChanged() const
 {
 	return m_bufferVerticiesChanged;
+}
+
+Vector2D<float> AGraphicShape::getPositionByRotation(const float x, const float y, const float& rotation)
+{
+	return Vector2D<float>((x * glm::cos(glm::radians(rotation))) - (y * glm::sin(glm::radians(rotation))),
+						   (x * glm::sin(glm::radians(rotation))) + (y * glm::cos(glm::radians(rotation))));
 }
 
 

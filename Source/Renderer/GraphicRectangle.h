@@ -15,6 +15,7 @@ public:
 
 	void checkUpdate() final;
 	void buildGraphicRepresentation(const glm::mat4& projectionMatrix) final;
+	void buildAndBindVertexBuffer() final;
 
 private:
 	Vector2D<float> m_size;	// the size of the rectangle

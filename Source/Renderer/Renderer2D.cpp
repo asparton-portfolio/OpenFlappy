@@ -6,8 +6,6 @@
 
 #include <GLM/gtc/matrix_transform.hpp>
 
-#include <iostream>
-
 Renderer2D::Renderer2D(const Vector2D<float>& renderArea)
 {
 	m_projectionMatrix = glm::ortho(0.0f, renderArea.x, 0.0f, renderArea.y);
@@ -20,11 +18,16 @@ void Renderer2D::clear() const
 
 void Renderer2D::draw(IGraphicShape& graphicShape) const
 {
-	if (graphicShape.bufferVerticiesChanged())
+	if (!graphicShape.getShaderProgram())
 		graphicShape.buildGraphicRepresentation(m_projectionMatrix);
+	else
+	{
+		if (graphicShape.bufferVerticiesChanged())
+			graphicShape.buildAndBindVertexBuffer();
 
-	else if (graphicShape.shaderInfoChanged())
-		graphicShape.updateShaders(m_projectionMatrix);
+		if (graphicShape.shaderInfoChanged())
+			graphicShape.updateShaders(m_projectionMatrix);
+	}
 
 	graphicShape.getShaderProgram()->use();
 	graphicShape.getVertexArray()->bind();

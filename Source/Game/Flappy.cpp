@@ -28,18 +28,21 @@ void Flappy::applyGravity(const bool jumpHeightReached)
 		m_jumpHeightEdgeCount = 1;
 	}
 
-	if (m_jumpHeightEdgeCount > 0 && m_jumpHeightEdgeCount < 5)
+	if (m_jumpHeightEdgeCount > 0 && m_jumpHeightEdgeCount < 10)
 	{
-		setPosition(m_position.x, m_position.y + 2.f);	// Tiny movement going up
+		setPosition(m_position.x, m_position.y + 0.5f);	// Tiny movement going up
 		m_jumpHeightEdgeCount++;
 	}
-	else if (m_jumpHeightEdgeCount == 5)
+	else if (m_jumpHeightEdgeCount == 10)
 		m_jumpHeightEdgeCount = -1;
 	else
 		setPosition(m_position.x, m_position.y - m_weight / m_gravityAccelerationFactor);
 
 	if (m_gravityAccelerationFactor > 1 && m_jumpHeightEdgeCount == -1)
 		m_gravityAccelerationFactor -= 1.f;
+
+	if (m_rotation >= -90.f && m_jumpHeightEdgeCount == -1)
+		m_rotation -= 3.f;
 }
 
 void Flappy::jump()

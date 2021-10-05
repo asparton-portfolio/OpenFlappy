@@ -1,7 +1,5 @@
 #include "GraphicRectangle.h"
 
-#include <iostream>
-
 GraphicRectangle::GraphicRectangle(const Rectangle& rectangle) : AGraphicShape((IShape*)&rectangle), m_size(m_shape->getSize())
 {
 	const GLuint indicies[6] = { 0, 1, 2, 3, 0, 2 };
@@ -48,6 +46,18 @@ void GraphicRectangle::buildGraphicRepresentation(const glm::mat4& projectionMat
 	m_bufferVerticiesChanged = false;
 }
 
+void GraphicRectangle::buildAndBindVertexBuffer()
+{
+	m_vertexArray->bind();
+	buildVertexBuffer();
+	m_vertexBuffer->bind();
+	m_vertexArray->setVertexBufferLayout(*m_vertexBufferLayout, *m_vertexBuffer);
+
+	m_vertexArray->unbind();
+	m_vertexBuffer->unbind();
+	m_bufferVerticiesChanged = false;
+}
+
 void GraphicRectangle::buildVertexBuffer()
 {
 	// If there is an existing buffer, we clear the memory first before pointing to a new one
@@ -58,13 +68,18 @@ void GraphicRectangle::buildVertexBuffer()
 		delete m_vertexBufferLayout;
 	m_vertexBufferLayout = new VertexBufferLayout();
 
+	Vector2D<float> bottomLeftCorner = AGraphicShape::getPositionByRotation(0.f, 0.f, m_rotation);
+	Vector2D<float> bottomRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, 0.f, m_rotation);
+	Vector2D<float> topRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, m_shape->getSize().y, m_rotation);
+	Vector2D<float> topLeftCorner = AGraphicShape::getPositionByRotation(0.f, m_shape->getSize().y, m_rotation);
+
 	if (m_shape->getTexture())
 	{
 		GLfloat verticies[16] = {
-			0.f, 0.f,	0.0f, 0.0f,
-			m_shape->getSize().x, 0.f,	1.0f, 0.0f,
-			m_shape->getSize().x, m_shape->getSize().y,	1.0f, 1.0f,
-			0.f, m_shape->getSize().y,	0.0f, 1.0f
+			bottomLeftCorner.x, bottomLeftCorner.y,		0.f, 0.f,
+			bottomRightCorner.x, bottomRightCorner.y,	1.f, 0.f,
+			topRightCorner.x, topRightCorner.y,			1.f, 1.f,
+			topLeftCorner.x, topLeftCorner.y,			0.f, 1.f
 		};
 		m_vertexBuffer = new VertexBuffer(verticies, 16 * sizeof(GLfloat));
 
@@ -74,10 +89,10 @@ void GraphicRectangle::buildVertexBuffer()
 	else
 	{
 		GLfloat verticies[8] = {
-			0.f, 0.f,
-			m_shape->getSize().x, 0.f,
-			m_shape->getSize().x, m_shape->getSize().y,
-			0.f, m_shape->getSize().y
+			bottomLeftCorner.x, bottomLeftCorner.y,
+			bottomRightCorner.x, bottomRightCorner.y,
+			topRightCorner.x, topRightCorner.y,
+			topLeftCorner.x, topLeftCorner.y,
 		};
 		m_vertexBuffer = new VertexBuffer(verticies, 8 * sizeof(GLfloat));
 	}

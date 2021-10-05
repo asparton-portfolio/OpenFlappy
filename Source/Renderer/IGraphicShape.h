@@ -27,6 +27,10 @@ public:
 	 */
 	virtual void updateShaders(const glm::mat4& projectionMatrix) = 0;
 
+	/**
+	 * .Build the vertex buffer associated with the shape and bind it with the current vertex array.
+	 */
+	virtual void buildAndBindVertexBuffer() = 0;
 
 	/**
 	 * \return the shape associated with this graphic representation

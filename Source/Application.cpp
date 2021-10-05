@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 #include <GLM/gtc/matrix_transform.hpp>
 
 static const Vector2D<float> WINDOW_SIZE(414.f, 736.f);
@@ -68,6 +67,8 @@ static void manageFlappyJump(Flappy& flappy, bool& isJumping)
 		{
 			flappy.jump();
 			isJumping = true;
+			if (flappy.getRotation() != -25.f)
+				flappy.setRotation(25.f);
 		}
 	}
 }
@@ -121,18 +122,18 @@ int main()
 
 	std::vector<Pipes*> allPipes; // Gather all the pipes of the game
 	// We only need 3 pair of pipes that we are going to reposition every time (no need to constantly delete and create new ones)
-	allPipes.push_back(new Pipes(300.f, WINDOW_SIZE.x + 750.f, WINDOW_SIZE.y, entryTexture, tubeTexture));
-	allPipes.push_back(new Pipes(100.f, WINDOW_SIZE.x + 750.f + (WINDOW_SIZE.x - WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
-	allPipes.push_back(new Pipes(500.f, WINDOW_SIZE.x + 750.f + (WINDOW_SIZE.x + WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
+	allPipes.push_back(new Pipes(300.f, WINDOW_SIZE.x + 250.f, WINDOW_SIZE.y, entryTexture, tubeTexture));
+	allPipes.push_back(new Pipes(100.f, WINDOW_SIZE.x + 250.f + (WINDOW_SIZE.x - WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
+	allPipes.push_back(new Pipes(500.f, WINDOW_SIZE.x + 250.f + (WINDOW_SIZE.x + WINDOW_SIZE.x / 3), WINDOW_SIZE.y, entryTexture, tubeTexture));
 	
 	// We add the graphic representations of the pipes
-	/*for (const Pipes* pipes : allPipes)
+	for (const Pipes* pipes : allPipes)
 	{
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()->getPipeEntry()));
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getBottomPipe()->getPipeTube()));
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()->getPipeEntry()));
 		graphicRepresentations.push_back(new GraphicRectangle(*pipes->getTopPipe()->getPipeTube()));
-	}*/
+	}
 
 
 	/// Flappy bird
@@ -143,17 +144,16 @@ int main()
 	graphicRepresentations.push_back(new GraphicRectangle(flappy));
 	bool isJumping = false;	// Used to determine when flappy has reached his maximum jump height
 
-
-	flappy.setRotation(180.f);
-
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window))
 	{
 		renderer.clear();
-
 		renderer.draw(graphicBackground); // Draw backgound first, and the other elements above
-		//managePipes(allPipes, flappy);
-		//manageFlappyJump(flappy, isJumping);
+
+		if (flappy.firstJumpDone())
+			managePipes(allPipes, flappy);
+		manageFlappyJump(flappy, isJumping);
+
 		updateGraphics(graphicRepresentations, renderer);
 
 		glfwSwapBuffers(window); // Swap between front and back buffers
