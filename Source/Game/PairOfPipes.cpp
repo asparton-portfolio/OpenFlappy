@@ -1,6 +1,6 @@
-#include "Pipes.h"
+#include "PairOfPipes.h"
 
-Pipes::Pipes(const float bottomPipeHeight, const float startPositionX, const float windowSizeY, Texture& entryTexture, Texture& tubeTexture,
+PairOfPipes::PairOfPipes(const float bottomPipeHeight, const float startPositionX, const float windowSizeY, Texture& entryTexture, Texture& tubeTexture,
 const float pipeWidth /*= 30.f*/, const float pipeGap /*= 100.f*/) :
 	m_bottomPipe(), m_topPipe(), m_pipeGap(pipeGap), m_pipeWidth(pipeWidth), m_windowSizeY(windowSizeY)
 {
@@ -8,13 +8,13 @@ const float pipeWidth /*= 30.f*/, const float pipeGap /*= 100.f*/) :
 	m_topPipe = new Pipe(startPositionX, bottomPipeHeight + m_pipeGap, m_windowSizeY - bottomPipeHeight - m_pipeGap, entryTexture, tubeTexture, false);
 }
 
-void Pipes::setPositionX(const float x) const
+void PairOfPipes::setPositionX(const float x) const
 {
 	m_bottomPipe->setPositionX(x);
 	m_topPipe->setPositionX(x);
 }
 
-void Pipes::setBottomPipeHeight(const float height) const
+void PairOfPipes::setBottomPipeHeight(const float height) const
 {
 	if (m_bottomPipe->getHeight() != height)
 	{
@@ -25,42 +25,42 @@ void Pipes::setBottomPipeHeight(const float height) const
 	}
 }
 
-void Pipes::moveToLeft() const
+void PairOfPipes::moveToLeft() const
 {
 	m_bottomPipe->moveToLeft();
 	m_topPipe->moveToLeft();
 }
 
-bool Pipes::reachedWindowEnd() const
+bool PairOfPipes::reachedWindowEnd() const
 {
 	return m_bottomPipe->reachedWindowEnd();
 }
 
 
 
-bool Pipes::isColliding(const Rectangle& rectangle) const
+bool PairOfPipes::isColliding(const Rectangle& rectangle) const
 {
 	return m_bottomPipe->isColliding(rectangle) || m_topPipe->isColliding(rectangle);
 }
 
-Pipe* Pipes::getBottomPipe() const
+Pipe* PairOfPipes::getBottomPipe() const
 {
 	return m_bottomPipe;
 }
 
-Pipe* Pipes::getTopPipe() const
+Pipe* PairOfPipes::getTopPipe() const
 {
 	return m_topPipe;
 }
 
-float Pipes::getPipeWidth() const
+float PairOfPipes::getPipeWidth() const
 {
 	return m_pipeWidth;
 }
 
 
 
-Pipes::~Pipes()
+PairOfPipes::~PairOfPipes()
 {
 	delete m_bottomPipe;
 	delete m_topPipe;

@@ -7,12 +7,12 @@
  *  - Can change of size and postion.
  *  - Can collide with another rectangle.
  */
-class Pipes
+class PairOfPipes
 {
 public:
-	Pipes(const float bottomPipeHeight, const float startPositionX, const float windowSizeY, Texture& textureBottom, Texture& textureTop,
+	PairOfPipes(const float bottomPipeHeight, const float startPositionX, const float windowSizeY, Texture& textureBottom, Texture& textureTop,
 		const float pipeWidth = 40.f, const float pipeGap = 150.f);
-	~Pipes();
+	~PairOfPipes();
 
 	/**
 	 * .Set a new position for the x axis for the two pipes.

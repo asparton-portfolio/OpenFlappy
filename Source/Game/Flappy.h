@@ -37,6 +37,11 @@ public:
 	bool isJumping() const;
 
 	/**
+	 * .Set the first jump done status to false.
+	 */
+	void resetFirstJumpDone();
+
+	/**
 	 * \return true if the player has made the first jump, false otherwise.
 	 */
 	bool firstJumpDone() const;

@@ -152,7 +152,7 @@
     <ClCompile Include="Dependencies\GLM\detail\glm.cpp" />
     <ClCompile Include="Source\Game\Flappy.cpp" />
     <ClCompile Include="Source\Game\Pipe.cpp" />
-    <ClCompile Include="Source\Game\Pipes.cpp" />
+    <ClCompile Include="Source\Game\PairOfPipes.cpp" />
     <ClCompile Include="Source\Renderer\AGraphicShape.cpp" />
     <ClCompile Include="Source\Renderer\GraphicRectangle.cpp" />
     <ClCompile Include="Source\Renderer\Renderer2D.cpp" />
@@ -593,7 +593,7 @@
     <ClInclude Include="Dependencies\STB\stb_image.h" />
     <ClInclude Include="Source\Game\Flappy.h" />
     <ClInclude Include="Source\Game\Pipe.h" />
-    <ClInclude Include="Source\Game\Pipes.h" />
+    <ClInclude Include="Source\Game\PairOfPipes.h" />
     <ClInclude Include="Source\Renderer\AGraphicShape.h" />
     <ClInclude Include="Source\Renderer\GraphicRectangle.h" />
     <ClInclude Include="Source\Renderer\IGraphicShape.h" />

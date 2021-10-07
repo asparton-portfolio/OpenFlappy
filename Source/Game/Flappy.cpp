@@ -57,7 +57,7 @@ void Flappy::jump()
 		
 	if (m_position.y < m_nextJumpHeight)
 	{
-		setPosition(m_position.x, m_position.y + (float)Flappy::JUMP_HEIGHT / m_jumpAccelerationFactor);
+		setPosition(m_position.x, m_position.y + (float)Flappy::JUMP_HEIGHT / (float)m_jumpAccelerationFactor);
 		m_jumpAccelerationFactor += 1;
 	}
 	else
@@ -75,12 +75,17 @@ bool Flappy::isJumping() const
 	return m_jumpAccelerationFactor > 0;
 }
 
+void Flappy::resetFirstJumpDone()
+{
+	m_firstJumpDone = false;
+}
+
 bool Flappy::firstJumpDone() const
 {
 	return m_firstJumpDone;
 }
 
-void onKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
+void onKeyPressed(GLFWwindow* window, int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mods)
 {
 	Flappy* flappy = (Flappy*)glfwGetWindowUserPointer(window);
 
