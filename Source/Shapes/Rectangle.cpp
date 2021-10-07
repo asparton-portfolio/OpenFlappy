@@ -2,29 +2,37 @@
 
 #pragma region Constructors
 
-Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size) :
-	m_position(position), m_size(size), m_rotation(), m_color(), m_texture(nullptr) {}
+Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(position), m_size(size), m_rotation(), m_color(), m_texture(nullptr) {}
 
-Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, const Color& color) :
-	m_position(position), m_size(size), m_rotation(), m_color(color), m_texture(nullptr) {}
+Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, const Color& color, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(position), m_size(size), m_rotation(), m_color(color), m_texture(nullptr) {}
 
-Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, Texture& texture) :
-	m_position(position), m_size(size), m_rotation(), m_color(), m_texture(&texture) {}
+Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, Texture& texture, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(position), m_size(size), m_rotation(), m_color(), m_texture(&texture) {}
 
-Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, const Color& color, Texture& texture) :
-	m_position(position), m_size(size), m_rotation(), m_color(color), m_texture(&texture) {}
+Rectangle::Rectangle(const Vector2D<float>& position, const Vector2D<float>& size, const Color& color, Texture& texture, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(position), m_size(size), m_rotation(), m_color(color), m_texture(&texture) {}
 
-Rectangle::Rectangle(const float x, const float y, const float width, const float height) :
-	m_position(x, y), m_size(width, height), m_rotation(), m_color(), m_texture(nullptr) {}
+Rectangle::Rectangle(const float x, const float y, const float width, const float height, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(x, y), m_size(width, height), m_rotation(), m_color(), m_texture(nullptr) {}
 
-Rectangle::Rectangle(const float x, const float y, const float width, const float height, const Color& color) :
-	m_position(x, y), m_size(width, height), m_rotation(), m_color(color), m_texture(nullptr) {}
+Rectangle::Rectangle(const float x, const float y, const float width, const float height, const Color& color, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(x, y), m_size(width, height), m_rotation(), m_color(color), m_texture(nullptr) {}
 
-Rectangle::Rectangle(const float x, const float y, const float width, const float height, Texture& texture) :
-	m_position(x, y), m_size(width, height), m_rotation(), m_color(), m_texture(&texture) {}
+Rectangle::Rectangle(const float x, const float y, const float width, const float height, Texture& texture,
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(x, y), m_size(width, height), m_rotation(), m_color(), m_texture(&texture) {}
 
-Rectangle::Rectangle(const float x, const float y, const float width, const float height, const Color& color, Texture& texture) :
-	m_position(x, y), m_size(width, height), m_rotation(), m_color(color), m_texture(&texture) {}
+Rectangle::Rectangle(const float x, const float y, const float width, const float height, const Color& color, Texture& texture, 
+	const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/) :
+	m_anchorPoint(location), m_position(x, y), m_size(width, height), m_rotation(), m_color(color), m_texture(&texture) {}
 
 #pragma endregion
 
@@ -37,6 +45,11 @@ bool Rectangle::isColliding(const Rectangle& rectangle) const
 /// <summary>
 /// SETTERS
 /// </summary>
+
+void Rectangle::setAnchorPoint(const AnchorPointLocation location /*= AnchorPointLocation::BOTTOM_LEFT*/)
+{
+	m_anchorPoint = location;
+}
 
 void Rectangle::setPosition(const Vector2D<float>& position)
 {
@@ -79,6 +92,11 @@ void Rectangle::setTexture(Texture& texture)
 /// <summary>
 /// GETTERS
 /// </summary>
+
+AnchorPointLocation Rectangle::getAnchorPoint() const
+{
+	return m_anchorPoint;
+}
 
 Vector2D<float> Rectangle::getPosition() const
 {

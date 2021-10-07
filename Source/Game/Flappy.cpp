@@ -1,8 +1,9 @@
 #include "Flappy.h"
 
 
-Flappy::Flappy(const float x, const float y, const float width, const float height, Texture& texture, GLFWwindow* window, const float weight) :
-	Rectangle(x, y, width, height, texture), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1),
+Flappy::Flappy(const float x, const float y, const float width, const float height, Texture& texture, GLFWwindow* window, 
+	const AnchorPointLocation location, const float weight) :
+	Rectangle(x, y, width, height, texture, location), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1),
 	m_jumpAccelerationFactor(), m_gravityAccelerationFactor(15.f), m_jumpHeightEdgeCount()
 {
 	// Bind keyboard input listening to my function
@@ -10,8 +11,9 @@ Flappy::Flappy(const float x, const float y, const float width, const float heig
 	glfwSetWindowUserPointer(m_window, this);
 }
 
-Flappy::Flappy(const Vector2D<float> position, const Vector2D<float> size, Texture& texture, GLFWwindow* window, const float weight) :
-	Rectangle(position, size, texture), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1),
+Flappy::Flappy(const Vector2D<float> position, const Vector2D<float> size, Texture& texture, GLFWwindow* window, 
+	const AnchorPointLocation location, const float weight) :
+	Rectangle(position, size, texture, location), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1),
 	m_jumpAccelerationFactor(), m_gravityAccelerationFactor(15.f), m_jumpHeightEdgeCount()
 {
 	// Bind keyboard input listening to my function

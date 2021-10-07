@@ -68,10 +68,45 @@ void GraphicRectangle::buildVertexBuffer()
 		delete m_vertexBufferLayout;
 	m_vertexBufferLayout = new VertexBufferLayout();
 
-	Vector2D<float> bottomLeftCorner = AGraphicShape::getPositionByRotation(0.f, 0.f, m_rotation);
-	Vector2D<float> bottomRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, 0.f, m_rotation);
-	Vector2D<float> topRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, m_shape->getSize().y, m_rotation);
-	Vector2D<float> topLeftCorner = AGraphicShape::getPositionByRotation(0.f, m_shape->getSize().y, m_rotation);
+	// Determination of the four rectangle base position on the (0;0) by its anchor point and rotation
+	Vector2D<float> bottomLeftCorner;
+	Vector2D<float> bottomRightCorner;
+	Vector2D<float> topRightCorner;
+	Vector2D<float> topLeftCorner;
+
+	switch (m_shape->getAnchorPoint())
+	{
+	case AnchorPointLocation::CENTER:
+		bottomLeftCorner = AGraphicShape::getPositionByRotation(-m_shape->getSize().x / 2, -m_shape->getSize().y / 2, m_rotation);
+		bottomRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x / 2, -m_shape->getSize().y / 2, m_rotation);
+		topRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x / 2, m_shape->getSize().y / 2, m_rotation);
+		topLeftCorner = AGraphicShape::getPositionByRotation(-m_shape->getSize().x / 2, m_shape->getSize().y / 2, m_rotation);
+		break;
+	case AnchorPointLocation::BOTTOM_RIGHT:
+		bottomLeftCorner = AGraphicShape::getPositionByRotation(-m_shape->getSize().x, 0.f , m_rotation);
+		bottomRightCorner = AGraphicShape::getPositionByRotation(0.f, 0.f, m_rotation);
+		topRightCorner = AGraphicShape::getPositionByRotation(0.f, m_shape->getSize().y, m_rotation);
+		topLeftCorner = AGraphicShape::getPositionByRotation(-m_shape->getSize().x, m_shape->getSize().y, m_rotation);
+		break;
+	case AnchorPointLocation::TOP_LEFT:
+		bottomLeftCorner = AGraphicShape::getPositionByRotation(0.f, -m_shape->getSize().y, m_rotation);
+		bottomRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, -m_shape->getSize().y, m_rotation);
+		topRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, 0.f, m_rotation);
+		topLeftCorner = AGraphicShape::getPositionByRotation(0.f, 0.f, m_rotation);
+		break;
+	case AnchorPointLocation::TOP_RIGHT:
+		bottomLeftCorner = AGraphicShape::getPositionByRotation(-m_shape->getSize().x, -m_shape->getSize().y, m_rotation);
+		bottomRightCorner = AGraphicShape::getPositionByRotation(0.f, -m_shape->getSize().y, m_rotation);
+		topRightCorner = AGraphicShape::getPositionByRotation(0.f, 0.f, m_rotation);
+		topLeftCorner = AGraphicShape::getPositionByRotation(-m_shape->getSize().x, 0.f, m_rotation);
+		break;
+	default:
+		bottomLeftCorner = AGraphicShape::getPositionByRotation(0.f, 0.f, m_rotation);
+		bottomRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, 0.f, m_rotation);
+		topRightCorner = AGraphicShape::getPositionByRotation(m_shape->getSize().x, m_shape->getSize().y, m_rotation);
+		topLeftCorner = AGraphicShape::getPositionByRotation(0.f, m_shape->getSize().y, m_rotation);
+		break;
+	}
 
 	if (m_shape->getTexture())
 	{

@@ -30,6 +30,7 @@ public:
 protected:
 	IShape* m_shape; // A pointer to the associated shape
 
+	AnchorPointLocation m_anchorPoint; // The (0;0) location of the shape
 	glm::mat4 m_translationMatrix; // Used to position the shape on the screen
 	float m_rotation;
 	Color m_color;

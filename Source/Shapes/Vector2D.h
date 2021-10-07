@@ -10,6 +10,7 @@ public:
 	T x;
 	T y;
 
+	Vector2D() = default;
 	Vector2D(const T& x, const T& y) : x(x), y(y) {}
 };
 

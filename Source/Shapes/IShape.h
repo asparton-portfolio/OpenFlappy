@@ -6,11 +6,28 @@
 #include "../Renderer/IGraphicShape.h"
 
 /**
+ * .The possible locations for a shape anchor point.
+ */
+enum class AnchorPointLocation
+{
+	TOP_LEFT, TOP_RIGHT,
+	BOTTOM_LEFT, BOTTOM_RIGHT,
+	CENTER
+};
+
+/**
  * .Represents a shape that has a position, a size, a color and a possible texture.
  */
 class IShape
 {
 public:
+	
+	/**
+	 * .Set the anchor point, the (0;0) point on the shape.
+	 * 
+	 * \param location the anchor point location, BOTTOM_LEFT by default.
+	 */
+	virtual void setAnchorPoint(const AnchorPointLocation location = AnchorPointLocation::BOTTOM_LEFT) = 0;
 
 	/**
 	 * .Set a new position for the shape.
@@ -65,6 +82,11 @@ public:
 	 */
 	virtual void setTexture(Texture& texture) = 0;
 
+	
+	/**
+	 * \return the anchor point, the (0;0) location of the shape.
+	 */
+	virtual AnchorPointLocation getAnchorPoint() const = 0;
 
 	/**
 	 * \return the position of the shape.

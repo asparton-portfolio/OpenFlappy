@@ -73,6 +73,12 @@ void AGraphicShape::checkUpdate()
 		m_rotation = m_shape->getRotation();
 	}
 
+	if (m_shape->getAnchorPoint() != m_anchorPoint)
+	{
+		m_anchorPoint = m_shape->getAnchorPoint();
+		m_bufferVerticiesChanged = true;
+	}
+
 	if (m_shape->getColor().red != m_color.red ||
 		m_shape->getColor().green != m_color.green ||
 		m_shape->getColor().blue != m_color.blue ||

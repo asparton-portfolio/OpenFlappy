@@ -13,8 +13,10 @@
 class Flappy : public Rectangle {
 
 public:
-	Flappy(const float x, const float y, const float width, const float height, Texture& texture, GLFWwindow* window, const float weight = 5.5f);
-	Flappy(const Vector2D<float> position, const Vector2D<float> size, Texture& texture, GLFWwindow* window, const float weight = 5.5f);
+	Flappy(const float x, const float y, const float width, const float height, Texture& texture, GLFWwindow* window,
+		const AnchorPointLocation location = AnchorPointLocation::BOTTOM_LEFT, const float weight = 5.5f);
+	Flappy(const Vector2D<float> position, const Vector2D<float> size, Texture& texture, GLFWwindow* window, 
+		const AnchorPointLocation location = AnchorPointLocation::BOTTOM_LEFT, const float weight = 5.5f);
 	~Flappy() = default;
 
 	/**

@@ -52,14 +52,21 @@ static void managePipes(const std::vector<Pipes*>& pipesVector, Flappy& flappy)
  * .Manage the given flappy jump.
  * 
  * \param flappy The flappy instance
+ * \param groundCollisionBox the ground collision rectangle
  * \param isJumping Used to determine when flappy has reached his maximum jump height
  */
-static void manageFlappyJump(Flappy& flappy, bool& isJumping)
+static void manageFlappyJump(Flappy& flappy, const Rectangle& groundCollisionBox, bool& isJumping)
 {
 	if (flappy.firstJumpDone())
 	{
 		if (!flappy.isJumping())
 		{
+			if (flappy.isColliding(groundCollisionBox))
+			{
+				Color red(0.75f, 0.25f, 0.25f, 1.f);
+				flappy.setColor(red);
+			}
+
 			flappy.applyGravity(isJumping);
 			isJumping = false;
 		}
@@ -112,9 +119,12 @@ int main()
 
 	/// Background
 	Texture backgroundTexture("Resources/Textures/background.png");
-	const Rectangle background(0.0f, 0.0f, WINDOW_SIZE.x, WINDOW_SIZE.y, backgroundTexture);
+	const Rectangle background(0.f, 0.f, WINDOW_SIZE.x, WINDOW_SIZE.y, backgroundTexture);
 	GraphicRectangle graphicBackground(background);
 
+
+	/// Ground
+	const Rectangle groundCollisionBox(0.f, 80.f, WINDOW_SIZE.x, 20.f);
 
 	/// Pipes initialisation
 	Texture entryTexture("Resources/Textures/pipeEntry.png");
@@ -138,9 +148,9 @@ int main()
 
 	/// Flappy bird
 	Texture flappyTexture("Resources/Textures/flappyBird.png");
-	Vector2D<float> flappyStartPosition(100.f, WINDOW_SIZE.y / 2);
+	Vector2D<float> flappyStartPosition(WINDOW_SIZE.x / 4, WINDOW_SIZE.y / 2);
 	Vector2D<float> flappySize(50.f, 50.f);
-	Flappy flappy(flappyStartPosition, flappySize, flappyTexture, window);
+	Flappy flappy(flappyStartPosition, flappySize, flappyTexture, window, AnchorPointLocation::CENTER);
 	graphicRepresentations.push_back(new GraphicRectangle(flappy));
 	bool isJumping = false;	// Used to determine when flappy has reached his maximum jump height
 
@@ -152,7 +162,7 @@ int main()
 
 		if (flappy.firstJumpDone())
 			managePipes(allPipes, flappy);
-		manageFlappyJump(flappy, isJumping);
+		manageFlappyJump(flappy, groundCollisionBox, isJumping);
 
 		updateGraphics(graphicRepresentations, renderer);
 
