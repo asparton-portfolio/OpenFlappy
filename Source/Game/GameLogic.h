@@ -96,6 +96,24 @@ public:
 	}
 
 	/**
+	 * .Determine whether the left side of flappy is equal to the right side of a pair of pipes or not.
+	 * 
+	 * \param allPairOfPipes all the pair of pipes of the game
+	 * \param flappy the flappy instance
+	 * \return true if the left side of flappy is equal to the right side of a pair of pipes, false otherwise.
+	 */
+	static bool isFlappyBetweenPipes(const std::vector<PairOfPipes*>& allPairOfPipes, const Flappy& flappy)
+	{
+		for (const PairOfPipes* pair : allPairOfPipes)
+		{
+			float pipesRightSide = pair->getBottomPipe()->getPipeEntry()->getPosition().x + pair->getBottomPipe()->getPipeEntry()->getSize().x;
+			if (flappy.getPosition().x >= pipesRightSide - 1 && flappy.getPosition().x <= pipesRightSide + 1)
+				return true;
+		}
+		return false;
+	}
+
+	/**
 	 * .Called when clicked on restart button, reset all the pipes position and height.
 	 *
 	 * \param allPairOfPipes all the pair of pipes of the game.

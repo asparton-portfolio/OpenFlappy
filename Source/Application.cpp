@@ -1,6 +1,8 @@
 #include "ApplicationUtils.h"
 #include "Game/GameLogic.h"
 
+#include <iostream>
+
 /**
  * .Update and draw the given graphic shapes.
  *
@@ -97,6 +99,9 @@ int main()
 	const Button restartButton(buttonPosition, buttonSize, restartButtonTexture, window);
 	GraphicRectangle graphicRestartButton(restartButton);
 
+	/// Score
+	unsigned int score = 0;
+
 	#pragma endregion
 
 	// MAIN LOOP
@@ -113,6 +118,9 @@ int main()
 
 			GameLogic::manageFlappyJump(flappy, isJumping);
 			gameOver = GameLogic::isFlappyColliding(allPairOfPipes, groundCollisionBox, flappy);
+
+			if (!gameOver && GameLogic::isFlappyBetweenPipes(allPairOfPipes, flappy))
+				score++;
 		}
 		else
 		{
