@@ -3,7 +3,7 @@
 
 Flappy::Flappy(const float x, const float y, const float width, const float height, Texture& texture, GLFWwindow* window, 
 	const AnchorPointLocation location, const float weight) :
-	Rectangle(x, y, width, height, texture, location), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1),
+	Rectangle(x, y, width, height, texture, location), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1), 
 	m_jumpAccelerationFactor(), m_gravityAccelerationFactor(15.f), m_jumpHeightEdgeCount()
 {
 	// Bind keyboard input listening to my function
@@ -13,12 +13,18 @@ Flappy::Flappy(const float x, const float y, const float width, const float heig
 
 Flappy::Flappy(const Vector2D<float> position, const Vector2D<float> size, Texture& texture, GLFWwindow* window, 
 	const AnchorPointLocation location, const float weight) :
-	Rectangle(position, size, texture, location), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1),
+	Rectangle(position, size, texture, location), m_window(window), m_weight(weight), m_firstJumpDone(false), m_nextJumpHeight(-1), 
 	m_jumpAccelerationFactor(), m_gravityAccelerationFactor(15.f), m_jumpHeightEdgeCount()
 {
 	// Bind keyboard input listening to my function
 	glfwSetKeyCallback(m_window, &onKeyPressed);
 	glfwSetWindowUserPointer(m_window, this);
+}
+
+Rectangle Flappy::getCollisionBox() const
+{
+	Rectangle collisionBox(m_position.x + m_size.x / 3, m_position.y + m_size.y / 3, m_size.x / 3, m_size.y / 3);
+	return collisionBox;
 }
 
 void Flappy::applyGravity(const bool jumpHeightReached)
@@ -78,6 +84,7 @@ bool Flappy::isJumping() const
 void Flappy::resetFirstJumpDone()
 {
 	m_firstJumpDone = false;
+	m_jumpAccelerationFactor = 0;
 }
 
 bool Flappy::firstJumpDone() const

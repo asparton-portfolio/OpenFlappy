@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLM\detail\glm.cpp" />
+    <ClCompile Include="Source\Game\Button.cpp" />
     <ClCompile Include="Source\Game\Flappy.cpp" />
     <ClCompile Include="Source\Game\Pipe.cpp" />
     <ClCompile Include="Source\Game\PairOfPipes.cpp" />
@@ -591,7 +592,10 @@
     <ClInclude Include="Dependencies\GLM\vec4.hpp" />
     <ClInclude Include="Dependencies\GLM\vector_relational.hpp" />
     <ClInclude Include="Dependencies\STB\stb_image.h" />
+    <ClInclude Include="Source\ApplicationUtils.h" />
+    <ClInclude Include="Source\Game\Button.h" />
     <ClInclude Include="Source\Game\Flappy.h" />
+    <ClInclude Include="Source\Game\GameLogic.h" />
     <ClInclude Include="Source\Game\Pipe.h" />
     <ClInclude Include="Source\Game\PairOfPipes.h" />
     <ClInclude Include="Source\Renderer\AGraphicShape.h" />
@@ -609,7 +613,6 @@
     <ClInclude Include="Source\Renderer\VertexBufferLayout.h" />
     <ClInclude Include="Source\Renderer\VertexArray.h" />
     <ClInclude Include="Source\Renderer\Texture.h" />
-    <ClInclude Include="Source\ApplicationUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\background.png" />

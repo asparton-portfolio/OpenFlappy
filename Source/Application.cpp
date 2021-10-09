@@ -1,112 +1,9 @@
 #include "ApplicationUtils.h"
-
-#include "Renderer/Renderer2D.h"
-#include "Renderer/GraphicRectangle.h"
-
-#include "Game/PairOfPipes.h"
-#include "Game/Flappy.h"
-
-#include <vector>
-#include <stdlib.h>
-#include <time.h>
-
-#include <GLM/gtc/matrix_transform.hpp>
-
-static const Vector2D<float> WINDOW_SIZE(414.f, 736.f);
-
-/**
- * .Change the height of the given pair of pipes randomly and place them out of the screen on the right side.
- * 
- * \param pipes the pair of pipes
- */
-static void regeneratePipes(const PairOfPipes& pair)
-{
-	pair.setBottomPipeHeight((float)(rand() % 150 + (int)(WINDOW_SIZE.y - 400)));
-	pair.setPositionX(WINDOW_SIZE.x * 2);
-}
-
-/**
- * .Manage pipes movements and regeneration.
- * 
- * \param pipesVector the pipes
- */
-static void managePipes(const std::vector<PairOfPipes*>& allPairOfPipes)
-{
-	for (const PairOfPipes* pair : allPairOfPipes)
-	{
-		if (pair->reachedWindowEnd())
-			regeneratePipes(*pair);
-
-		pair->moveToLeft(); // Pipes constantly move to the left of the screen
-	}
-}
-
-/**
- * .Manage the given flappy jump.
- * 
- * \param flappy The flappy instance
- * \param isJumping Used to determine when flappy has reached his maximum jump height
- * \return true if flappy collided with a pipe or the ground, false otherwise.
- */
-static void manageFlappyJump(Flappy& flappy, bool& isJumping)
-{
-	if (flappy.firstJumpDone())
-	{
-		if (!flappy.isJumping())
-		{
-			flappy.applyGravity(isJumping);
-			isJumping = false;
-		}
-		else
-		{
-			flappy.jump();
-			isJumping = true;
-			if (flappy.getRotation() != -25.f)
-				flappy.setRotation(25.f);
-		}
-	}
-}
-
-/**
- * .Determine wether the given flappy is colliding with one of the pipe or with the ground or nothing.
- * 
- * \param allPairOfPipes all the pair of pipes of the game.
- * \param ground the rectangle representing the ground collision box.
- * \param flappy the flappy instance.
- * \return true if flappy is colliding with one of the pipe or with the ground, false otherwise.
- */
-static bool isFlappyColliding(const std::vector<PairOfPipes*>& allPairOfPipes, const Rectangle& ground, const Flappy& flappy)
-{
-	if (flappy.isColliding(ground))
-		return true;
-
-	for (const PairOfPipes* pair : allPairOfPipes)
-	{
-		if (pair->isColliding(flappy))
-			return true;
-	}
-
-	return false;
-}
-
-/**
- * .Called when clicked on restart button, reset all the pipes position and height.
- * 
- * \param allPairOfPipes all the pair of pipes of the game.
- */
-static void resetAllPairOfPipes(std::vector<PairOfPipes*>& allPairOfPipes)
-{
-	for (const PairOfPipes* pair : allPairOfPipes)
-		pair->setBottomPipeHeight((float)(rand() % 150 + (int)(WINDOW_SIZE.y - 400)));
-
-	allPairOfPipes[0]->setPositionX(WINDOW_SIZE.x + 250.f);
-	allPairOfPipes[1]->setPositionX(WINDOW_SIZE.x + 250.f + (WINDOW_SIZE.x - WINDOW_SIZE.x / 3));
-	allPairOfPipes[2]->setPositionX(WINDOW_SIZE.x + 250.f + (WINDOW_SIZE.x + WINDOW_SIZE.x / 3));
-}
+#include "Game/GameLogic.h"
 
 /**
  * .Update and draw the given graphic shapes.
- * 
+ *
  * \param graphicRepresentations The graphic shapes to update and draw.
  * \param renderer The renderer used to draw the graphic shapes.
  */
@@ -123,6 +20,7 @@ int main()
 {
 	// Window & OpenGL context creation using GLFW
 	GLFWwindow* window = ApplicationUtils::createWindow((int)WINDOW_SIZE.x, (int)WINDOW_SIZE.y, "OpenFlappy", 4, 5);
+	glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
 
 	// GLEW initialisation
 	if (!ApplicationUtils::glewInitialisation(true))
@@ -131,10 +29,9 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
-
-
-	/// GAME SETUP
 	srand((unsigned int)time(nullptr)); // Set the seed to randomize
+
+	#pragma region Game initialisation
 
 	// Setup game graphics
 	Renderer2D renderer(WINDOW_SIZE);
@@ -147,10 +44,11 @@ int main()
 	GraphicRectangle graphicBackground(background);
 
 
-	/// Ground
+	/// Ground collision
 	const Rectangle groundCollisionBox(0.f, 90.f, WINDOW_SIZE.x, 1.f);
 
-	/// Pipes initialisation
+
+	/// Pipes
 	Texture entryTexture("Resources/Textures/pipeEntry.png");
 	Texture tubeTexture("Resources/Textures/pipeTube.png", 0, false);
 
@@ -186,53 +84,45 @@ int main()
 
 
 	/// Game over
+	// Background
 	bool gameOver = false;
 	const Color gameOverColor(0.2f, 0.2f, 0.2f, 0.6f);
 	const Rectangle gameOverBackground(0.f, 0.f, WINDOW_SIZE.x, WINDOW_SIZE.y, gameOverColor);
 	GraphicRectangle graphicGameOverBackground(gameOverBackground);
 
+	// Restart button
 	Texture restartButtonTexture("Resources/Textures/restartButton.png");
 	const Vector2D<float> buttonSize(136.f, 47.f);
-	const Rectangle restartButton(WINDOW_SIZE.x / 2 - buttonSize.x / 2, WINDOW_SIZE.y / 2 - buttonSize.y / 2, 
-								  buttonSize.x, buttonSize.y, restartButtonTexture);
+	const Vector2D<float> buttonPosition(WINDOW_SIZE.x / 2 - buttonSize.x / 2, WINDOW_SIZE.y / 2 - buttonSize.y / 2);
+	const Button restartButton(buttonPosition, buttonSize, restartButtonTexture, window);
 	GraphicRectangle graphicRestartButton(restartButton);
+
+	#pragma endregion
 
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window))
 	{
 		renderer.clear();
 		renderer.draw(graphicBackground); // Draw backgound first, and the other elements above
+		updateGraphics(graphicRepresentations, renderer);
 
 		if (!gameOver)
 		{
 			if (flappy.firstJumpDone())
-				managePipes(allPairOfPipes);
+				GameLogic::managePipes(allPairOfPipes);
 
-			manageFlappyJump(flappy, isJumping);
-			gameOver = isFlappyColliding(allPairOfPipes, groundCollisionBox, flappy);
+			GameLogic::manageFlappyJump(flappy, isJumping);
+			gameOver = GameLogic::isFlappyColliding(allPairOfPipes, groundCollisionBox, flappy);
 		}
-
-		updateGraphics(graphicRepresentations, renderer);
-		if (gameOver)
+		else
 		{
 			renderer.draw(graphicGameOverBackground);
 			renderer.draw(graphicRestartButton);
 
-			Vector2D<double> currentMousePosition;
-			glfwGetCursorPos(window, &currentMousePosition.x, &currentMousePosition.y);
-			int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-
-			if (state == GLFW_RELEASE &&
-				currentMousePosition.x >= restartButton.getPosition().x &&
-				currentMousePosition.x <= restartButton.getPosition().x + restartButton.getSize().x &&
-				currentMousePosition.y >= restartButton.getPosition().y &&
-				currentMousePosition.y <= restartButton.getPosition().y + restartButton.getSize().y)
+			if (restartButton.isPressed(GLFW_MOUSE_BUTTON_LEFT))
 			{
+				GameLogic::resetGame(flappy, flappyStartPosition, allPairOfPipes);
 				gameOver = false;
-				flappy.setPosition(flappyStartPosition);
-				flappy.setRotation(0.f);
-				flappy.resetFirstJumpDone();
-				resetAllPairOfPipes(allPairOfPipes);
 			}
 		}
 

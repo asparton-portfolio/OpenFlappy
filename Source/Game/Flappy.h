@@ -20,6 +20,11 @@ public:
 	~Flappy() = default;
 
 	/**
+	 * \return the collision box of flappy (smaller than the representation).
+	 */
+	Rectangle getCollisionBox() const;
+
+	/**
 	 * .Apply a kind of gravity on flappy to make it fall.
 	 * 
 	 * \param jumpHeightReached true if the jump height has just been reached -> continue to glide before falling straight
