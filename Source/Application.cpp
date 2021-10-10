@@ -1,8 +1,6 @@
 #include "ApplicationUtils.h"
 #include "Game/GameLogic.h"
 
-#include <iostream>
-
 /**
  * .Update and draw the given graphic shapes.
  *
