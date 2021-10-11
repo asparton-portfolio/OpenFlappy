@@ -16,6 +16,24 @@ static void updateGraphics(const std::vector<GraphicRectangle*>& graphicShapes, 
 	}
 }
 
+/**
+ * .Display the score on the screen using ImGui.
+ * 
+ * \param score the current score.
+ */
+static void displayScore(const unsigned int score)
+{
+	ImGui_ImplGlfwGL3_NewFrame();
+
+	ImGui::Begin("Score");
+	ImGui::SetWindowPos(ImVec2(WINDOW_SIZE.x / 2 - ImGui::GetWindowSize().x / 2, 10));
+	ImGui::Text("Score: %d", score);
+	ImGui::End();
+
+	ImGui::Render();
+	ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 int main()
 {
 	// Window & OpenGL context creation using GLFW
@@ -29,6 +47,10 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+
+	// ImGui initialisation
+	ApplicationUtils::ImGuiInitialisation(window, false);
+
 	srand((unsigned int)time(nullptr)); // Set the seed to randomize
 
 	#pragma region Game initialisation
@@ -128,9 +150,11 @@ int main()
 			if (restartButton.isPressed(GLFW_MOUSE_BUTTON_LEFT))
 			{
 				GameLogic::resetGame(flappy, flappyStartPosition, allPairOfPipes);
+				score = 0;
 				gameOver = false;
 			}
 		}
+		displayScore(score);
 
 		glfwSwapBuffers(window); // Swap between front and back buffers
 		glfwPollEvents(); // Manage window events (like closing, resizing...)
@@ -140,7 +164,9 @@ int main()
 	ApplicationUtils::freeVectorMemory(allPairOfPipes);
 	ApplicationUtils::freeVectorMemory(graphicRepresentations);
 
-	// Terminate GLFW & the application
+	// Terminate GLFW & ImGui & the application
+	ImGui_ImplGlfwGL3_Shutdown();
+	ImGui::DestroyContext();
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;

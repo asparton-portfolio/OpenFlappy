@@ -4,6 +4,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <IMGUI/imgui.h>
+#include <IMGUI/imgui_impl_glfw_gl3.h>
+
 #include <vector>
 
 /**
@@ -75,6 +78,23 @@ public:
 		}
 
 		return true;
+	}
+
+	/**
+	 * .Initialise ImGui to display the score.
+	 * 
+	 * \param window the glfw window.
+	 * \param darkTheme true to set the dark theme, false to set the light theme (true by default).
+	 */
+	static void ImGuiInitialisation(GLFWwindow* window, const bool darkTheme = true)
+	{
+		ImGui::CreateContext();
+		ImGui_ImplGlfwGL3_Init(window, true);
+
+		if (darkTheme)
+			ImGui::StyleColorsDark();
+		else
+			ImGui::StyleColorsLight();
 	}
 
 	/**
