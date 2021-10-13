@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IGraphicShape.h"
-#include "../Shapes/Vector2D.h"
+#include "Shapes/Vector2D.h"
 
 #include <GLM/glm.hpp>
 

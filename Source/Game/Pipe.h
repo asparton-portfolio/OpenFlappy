@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shapes/Rectangle.h"
+#include "../Renderer/Shapes/Rectangle.h"
 
 class Pipe
 {

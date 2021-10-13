@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "../Shapes/Rectangle.h"
+#include "../Renderer/Shapes/Rectangle.h"
 
 /**
  * .A rectangle that can detect if a mouse click happened inside itself.

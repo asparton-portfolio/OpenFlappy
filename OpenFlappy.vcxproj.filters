@@ -39,7 +39,7 @@
     <ClCompile Include="Dependencies\GLM\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Shapes\Rectangle.cpp">
+    <ClCompile Include="Source\Renderer\Shapes\Rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Renderer\Renderer2D.cpp">
@@ -1361,19 +1361,19 @@
     <ClInclude Include="Dependencies\GLM\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shapes\Rectangle.h">
+    <ClInclude Include="Source\Renderer\Shapes\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Renderer\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shapes\Vector2D.h">
+    <ClInclude Include="Source\Renderer\Shapes\Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Renderer\Renderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shapes\IShape.h">
+    <ClInclude Include="Source\Renderer\Shapes\IShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\PairOfPipes.h">

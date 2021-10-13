@@ -2,7 +2,7 @@
 
 #include "IGraphicShape.h"
 
-#include "../Shapes/IShape.h"
+#include "Shapes/IShape.h"
 #include "../Renderer/VertexArray.h"
 #include "../Renderer/ShaderProgram.h"
 #include "../Renderer/IndexBuffer.h"

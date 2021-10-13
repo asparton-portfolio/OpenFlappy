@@ -2,7 +2,7 @@
 
 #include "AGraphicShape.h"
 
-#include "../Shapes/Rectangle.h"
+#include "Shapes/Rectangle.h"
 
 /**
  * .Graphic representation of a rectangle

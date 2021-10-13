@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Vector2D.h"
-#include "../Renderer/Color.h"
-#include "../Renderer/Texture.h"
-#include "../Renderer/IGraphicShape.h"
+#include "../Color.h"
+#include "../Texture.h"
+#include "../IGraphicShape.h"
 
 /**
  * .The possible locations for a shape anchor point.

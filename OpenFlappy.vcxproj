@@ -161,7 +161,7 @@
     <ClCompile Include="Source\Renderer\AGraphicShape.cpp" />
     <ClCompile Include="Source\Renderer\GraphicRectangle.cpp" />
     <ClCompile Include="Source\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="Source\Shapes\Rectangle.cpp" />
+    <ClCompile Include="Source\Renderer\Shapes\Rectangle.cpp" />
     <ClCompile Include="Source\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="Source\Renderer\ShaderProgram.cpp" />
     <ClCompile Include="Source\Renderer\Shader.cpp" />
@@ -614,9 +614,9 @@
     <ClInclude Include="Source\Renderer\IGraphicShape.h" />
     <ClInclude Include="Source\Renderer\Renderer2D.h" />
     <ClInclude Include="Source\Renderer\Color.h" />
-    <ClInclude Include="Source\Shapes\IShape.h" />
-    <ClInclude Include="Source\Shapes\Vector2D.h" />
-    <ClInclude Include="Source\Shapes\Rectangle.h" />
+    <ClInclude Include="Source\Renderer\Shapes\IShape.h" />
+    <ClInclude Include="Source\Renderer\Shapes\Vector2D.h" />
+    <ClInclude Include="Source\Renderer\Shapes\Rectangle.h" />
     <ClInclude Include="Source\Renderer\IndexBuffer.h" />
     <ClInclude Include="Source\Renderer\ShaderProgram.h" />
     <ClInclude Include="Source\Renderer\Shader.h" />

@@ -2,7 +2,7 @@
 
 #include "VertexArray.h"
 #include "ShaderProgram.h"
-#include "../Shapes/IShape.h"
+#include "Shapes/IShape.h"
 
 #include <GLM/gtc/matrix_transform.hpp>
 

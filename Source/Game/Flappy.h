@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "../Shapes/Rectangle.h"
+#include "../Renderer/Shapes/Rectangle.h"
 
 /**
  * .Represents flappy, the character played by the player.
